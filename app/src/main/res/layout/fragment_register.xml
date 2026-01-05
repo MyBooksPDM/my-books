@@ -109,6 +109,7 @@
                 android:text="Create an account" />
 
             <Button
+                android:id="@+id/buttonRegisterToLogin"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

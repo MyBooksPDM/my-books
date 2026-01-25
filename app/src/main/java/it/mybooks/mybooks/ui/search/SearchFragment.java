@@ -1,4 +1,4 @@
-package it.mybooks.mybooks;
+package it.mybooks.mybooks.ui.search;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import it.mybooks.mybooks.R;
 
 public class SearchFragment extends Fragment {
 

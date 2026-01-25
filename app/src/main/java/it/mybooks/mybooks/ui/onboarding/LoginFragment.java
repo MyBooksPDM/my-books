@@ -1,6 +1,4 @@
-package it.mybooks.mybooks;
-
-import androidx.lifecycle.ViewModelProvider;
+package it.mybooks.mybooks.ui.onboarding;
 
 import android.os.Bundle;
 
@@ -14,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import it.mybooks.mybooks.R;
+
 public class LoginFragment extends Fragment {
 
-    private LoginViewModel mViewModel;
+    private AuthViewModel mViewModel;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();

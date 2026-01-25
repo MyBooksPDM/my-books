@@ -1,6 +1,4 @@
-package it.mybooks.mybooks;
-
-import androidx.lifecycle.ViewModelProvider;
+package it.mybooks.mybooks.ui.onboarding;
 
 import android.os.Bundle;
 
@@ -14,28 +12,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class WelcomeFragment extends Fragment {
+import it.mybooks.mybooks.R;
 
-    private WelcomeViewModel mViewModel;
+public class RegisterFragment extends Fragment {
 
-    public static WelcomeFragment newInstance() {
-        return new WelcomeFragment();
+    private AuthViewModel mViewModel;
+
+    public static RegisterFragment newInstance() {
+        return new RegisterFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_welcome, container, false);
+        return inflater.inflate(R.layout.fragment_register, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button b = view.findViewById(R.id.buttonEmailAndPassword);
+        Button b = view.findViewById(R.id.buttonRegisterToLogin);
 
         b.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_loginFragment);
+            Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_loginFragment);
         });
     }
+
 }

@@ -1,4 +1,4 @@
-package it.mybooks.mybooks;
+package it.mybooks.mybooks.ui.detail;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,24 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ProfileFragment extends Fragment {
+import it.mybooks.mybooks.R;
 
-    private ProfileViewModel mViewModel;
+public class BookDetailFragment extends Fragment {
 
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
+    private BookDetailViewModel mViewModel;
+
+    public static BookDetailFragment newInstance() {
+        return new BookDetailFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_book_detail, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(BookDetailViewModel.class);
         // TODO: Use the ViewModel
     }
 

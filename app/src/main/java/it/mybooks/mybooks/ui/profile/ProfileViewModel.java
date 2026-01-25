@@ -1,4 +1,4 @@
-package it.mybooks.mybooks;
+package it.mybooks.mybooks.ui.profile;
 
 import androidx.lifecycle.ViewModel;
 

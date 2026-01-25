@@ -32,9 +32,15 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button b = view.findViewById(R.id.buttonLoginToRegister);
+        Button loginButton = view.findViewById(R.id.loginButton);
 
-        b.setOnClickListener(v -> {
+        loginButton.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_profileFragment);
+        });
+
+        Button switchToRegisterButton = view.findViewById(R.id.buttonLoginToRegister);
+
+        switchToRegisterButton.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
         });
     }

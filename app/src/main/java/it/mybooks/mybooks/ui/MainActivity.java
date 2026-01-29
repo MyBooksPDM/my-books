@@ -12,6 +12,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import it.mybooks.mybooks.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
             // 3. Collega la ActionBar al NavController
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+            // 4. Collega la BottomNavigationView al NavController
+            BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+            NavigationUI.setupWithNavController(bottomNav, navController);
         }
     }
 

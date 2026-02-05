@@ -2,4 +2,7 @@
     <string name="app_name">MyBooks</string>
     <string name="profile">Profile</string>
     <string name="search">Search</string>
+
+    <string name="isbn_format">ISBN: %s</string>
+
 </resources>

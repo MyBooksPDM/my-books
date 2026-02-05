@@ -2,6 +2,7 @@ package it.mybooks.mybooks.ui.profile;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -60,6 +61,17 @@ public class ProfileFragment extends Fragment {
             // Navigate to detail fragment when a book is clicked
             Navigation.findNavController(view)
                     .navigate(R.id.action_profileFragment_to_bookDetailFragment, bundle);
+        });
+
+        bookAdapter.setOnBookLongClickListener(book -> {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Remove book")
+                    .setMessage("Do you want to remove \"" + book.getTitle() + "\" from your saved books?")
+                    .setPositiveButton("Remove", (dialog, which) ->
+                        mViewModel.deleteBook(book.getId())
+                    )
+                    .setNegativeButton("Cancel", null)
+                    .show();
         });
 
         // Observe books data from ViewModel

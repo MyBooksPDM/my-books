@@ -44,5 +44,6 @@ public class ProfileViewModel extends ViewModel {
             }
         }
         books.setValue(updatedBooks);
+        bookCount.setValue(updatedBooks.size());
     }
 }

@@ -23,6 +23,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ProfileViewHol
     private List<Book> books = new ArrayList<>();
     private OnBookClickListener listener;
 
+    // Click listener interface
     public interface OnBookClickListener {
         void onBookClick(Book book);
     }
@@ -55,6 +56,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ProfileViewHol
         return books.size();
     }
 
+    public interface OnBookLongClickListener{
+        void onBookLongClick(Book book);
+    }
+
+    private OnBookLongClickListener longClickListener;
+
+    public void setOnBookLongClickListener(OnBookLongClickListener longClickListener) {
+        this.longClickListener = longClickListener;
+    }
+
     class ProfileViewHolder extends RecyclerView.ViewHolder {
         private final TextView titleTextView;
         private final TextView authorTextView;
@@ -75,6 +86,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ProfileViewHol
                 if (position != RecyclerView.NO_POSITION && listener != null) {
                     listener.onBookClick(books.get(position));
                 }
+            });
+
+            itemView.setOnLongClickListener(view -> {
+                int position = getAdapterPosition();
+                if(position != RecyclerView.NO_POSITION && longClickListener != null){
+                    longClickListener.onBookLongClick(books.get(position));
+                }
+                return true; // Indicate that the long click was handled
             });
         }
 

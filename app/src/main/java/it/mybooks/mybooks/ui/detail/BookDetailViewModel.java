@@ -16,14 +16,14 @@ public class BookDetailViewModel extends ViewModel {
         return book;
     }
 
-    public void loadBookDetails(String bookId){
+    public void loadBookDetails(String bookId) {
         if (bookId == null || bookId.isEmpty()) {
             return;
         }
         // Simulate loading book details (in a real app, fetch from repository or database)
         List<Book> books = SampleBookData.getSampleBooks();
-        for(Book b : books){
-            if(bookId.equals(b.getId())){
+        for (Book b : books) {
+            if (bookId.equals(b.getGid())) {
                 book.setValue(b);
                 break;
             }

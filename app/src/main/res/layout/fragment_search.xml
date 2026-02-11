@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,18 +18,33 @@
         android:textAppearance="?attr/textAppearanceHeadlineLarge"
         android:textStyle="bold" />
 
-    <com.google.android.material.search.SearchBar
-        android:id="@+id/search_bar"
+    <!-- Usiamo un TextInputLayout stilizzato per maggiore compatibilità e stabilità -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_input_layout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Search your book" />
+        app:startIconDrawable="@drawable/round_mail_outline_24"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search your book"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingVertical="12dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExplore"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        tools:listitem="" />
+        tools:listitem="@layout/item_book" />
 
 </LinearLayout>

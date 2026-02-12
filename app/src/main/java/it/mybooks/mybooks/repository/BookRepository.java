@@ -3,6 +3,8 @@ package it.mybooks.mybooks.repository;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,8 @@ public class BookRepository {
     public BookRepository(Application application) {
         this.apiService = RetrofitClient.getInstance().getGoogleBooksService();
     }
-
+    private final MutableLiveData<List<Book>> searchResults = new MutableLiveData<>();
+    private final MutableLiveData<String> searchError = new MutableLiveData<>();
     public void searchBooks(String query) {
         Log.d(TAG, "Searching for: " + query);
 

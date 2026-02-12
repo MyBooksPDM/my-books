@@ -5,6 +5,7 @@ public class Book {
     // Unique identifier of the book (from Google Books API)
     private String id;
 
+    private String gid;
     // Basic book information
     private String title;
     private String subtitle;
@@ -56,7 +57,13 @@ public class Book {
     public void setId(String id) {
         this.id = id;
     }
+    public String getGid() {
+        return gid;
+    }
 
+    public void setGid(String gid) {
+        this.gid = gid;
+    }
     public String getTitle() {
         return title;
     }

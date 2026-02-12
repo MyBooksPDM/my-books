@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.model;
+package it.mybooks.mybooks.data.model;
 import java.util.List;
 public class Book {
 

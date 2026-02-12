@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.remote;
+package it.mybooks.mybooks.data.remote;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

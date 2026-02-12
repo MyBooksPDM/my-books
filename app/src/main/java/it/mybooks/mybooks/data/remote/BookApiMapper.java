@@ -1,13 +1,13 @@
-package it.mybooks.mybooks.remote;
+package it.mybooks.mybooks.data.remote;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.mybooks.mybooks.model.Book;
-import it.mybooks.mybooks.model.BookItem;
-import it.mybooks.mybooks.model.ImageLinks;
-import it.mybooks.mybooks.model.IndustryIdentifier;
-import it.mybooks.mybooks.model.VolumeInfo;
+import it.mybooks.mybooks.data.model.Book;
+import it.mybooks.mybooks.data.model.BookItem;
+import it.mybooks.mybooks.data.model.ImageLinks;
+import it.mybooks.mybooks.data.model.IndustryIdentifier;
+import it.mybooks.mybooks.data.model.VolumeInfo;
 
 /**
  * Mapper to convert Google Books API response objects to domain Book objects

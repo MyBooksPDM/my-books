@@ -1,6 +1,6 @@
-package it.mybooks.mybooks.remote;
+package it.mybooks.mybooks.data.remote;
 
-import it.mybooks.mybooks.model.BookItem;
+import it.mybooks.mybooks.data.model.BookItem;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

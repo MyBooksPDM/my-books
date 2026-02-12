@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.mybooks.mybooks.R;
-import it.mybooks.mybooks.model.Book;
+import it.mybooks.mybooks.data.model.Book;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
 

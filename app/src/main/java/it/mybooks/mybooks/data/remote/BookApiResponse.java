@@ -1,12 +1,12 @@
-package it.mybooks.mybooks.remote;
+package it.mybooks.mybooks.data.remote;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.mybooks.mybooks.model.Book;
-import it.mybooks.mybooks.model.BookItem;
+import it.mybooks.mybooks.data.model.Book;
+import it.mybooks.mybooks.data.model.BookItem;
 
 /**
  * Response model for Google Books API

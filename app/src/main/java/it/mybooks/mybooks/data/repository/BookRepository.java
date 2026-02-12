@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.repository;
+package it.mybooks.mybooks.data.repository;
 
 import android.app.Application;
 import android.util.Log;
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import it.mybooks.mybooks.model.Book;
-import it.mybooks.mybooks.remote.BookApiResponse;
-import it.mybooks.mybooks.remote.BookApiService;
-import it.mybooks.mybooks.remote.RetrofitClient;
+import it.mybooks.mybooks.data.model.Book;
+import it.mybooks.mybooks.data.remote.BookApiResponse;
+import it.mybooks.mybooks.data.remote.BookApiService;
+import it.mybooks.mybooks.data.remote.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;

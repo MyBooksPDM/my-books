@@ -45,3 +45,4 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+androidx-navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "navigationUi" }

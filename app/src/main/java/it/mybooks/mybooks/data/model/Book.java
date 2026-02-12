@@ -1,5 +1,8 @@
 package it.mybooks.mybooks.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,7 +15,7 @@ import it.mybooks.mybooks.utils.Converters;
 
 @Entity(tableName = "books")
 @TypeConverters(Converters.class)
-public class Book {
+public class Book implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "uid")
     private long uid; // Unique identifier for Room database
@@ -74,6 +77,39 @@ public class Book {
         this.authors = authors;
         this.publishedDate = publishedDate;
     }
+
+    protected Book(Parcel in) {
+        uid = in.readLong();
+        gid = in.readString();
+        title = in.readString();
+        subtitle = in.readString();
+        authors = in.createStringArrayList();
+        publisher = in.readString();
+        publishedDate = in.readString();
+        description = in.readString();
+        isbn10 = in.readString();
+        isbn13 = in.readString();
+        pageCount = in.readInt();
+        categories = in.createStringArrayList();
+        language = in.readString();
+        smallThumbnail = in.readString();
+        thumbnail = in.readString();
+        averageRating = in.readDouble();
+        ratingsCount = in.readInt();
+        savedTimestamp = in.readLong();
+    }
+
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel in) {
+            return new Book(in);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
 
     public String getGid() {
         return gid;
@@ -290,5 +326,32 @@ public class Book {
 
     public void setSavedTimestamp(long savedTimestamp) {
         this.savedTimestamp = savedTimestamp;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeLong(uid);
+        dest.writeString(gid);
+        dest.writeString(title);
+        dest.writeString(subtitle);
+        dest.writeStringList(authors);
+        dest.writeString(publisher);
+        dest.writeString(publishedDate);
+        dest.writeString(description);
+        dest.writeString(isbn10);
+        dest.writeString(isbn13);
+        dest.writeInt(pageCount);
+        dest.writeStringList(categories);
+        dest.writeString(language);
+        dest.writeString(smallThumbnail);
+        dest.writeString(thumbnail);
+        dest.writeDouble(averageRating);
+        dest.writeInt(ratingsCount);
+        dest.writeLong(savedTimestamp);
     }
 }

@@ -41,8 +41,12 @@
     <fragment
         android:id="@+id/bookDetailFragment"
         android:name="it.mybooks.mybooks.ui.main.fragment.BookDetailFragment"
-        android:label="fragment_book_detail"
-        tools:layout="@layout/fragment_book_detail" />
+        android:label="Detail"
+        tools:layout="@layout/fragment_book_detail" >
+        <argument
+            android:name="selectedBook"
+            app:argType="it.mybooks.mybooks.data.model.Book" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="it.mybooks.mybooks.ui.main.fragment.ProfileFragment"

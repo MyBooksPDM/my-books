@@ -8,16 +8,6 @@
     android:orientation="vertical"
     tools:context=".ui.main.fragment.SearchFragment">
 
-    <TextView
-        android:id="@+id/tvExploreTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="8dp"
-        android:text="Explore"
-        android:textAppearance="?attr/textAppearanceHeadlineLarge"
-        android:textStyle="bold" />
-
     <!-- Usiamo un TextInputLayout stilizzato per maggiore compatibilità e stabilità -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_input_layout"
@@ -25,9 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:startIconDrawable="@drawable/round_mail_outline_24"
+        app:hintEnabled="false"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-        app:hintEnabled="false">
+        app:startIconDrawable="@drawable/round_mail_outline_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_edit_text"

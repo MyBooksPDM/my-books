@@ -28,14 +28,23 @@ public class BookRepository {
     private final BookDao bookDao;
     private final BookApiService apiService;
 
+    private final MutableLiveData<List<Book>> searchResults = new MutableLiveData<>();
+    private final MutableLiveData<String> searchError = new MutableLiveData<>();
+
+
     public BookRepository(Application application) {
         AppDatabase db = AppDatabase.getInstance(application);
         this.bookDao = db.bookDao();
         this.apiService = RetrofitClient.getInstance().getGoogleBooksService();
     }
 
-    private final MutableLiveData<List<Book>> searchResults = new MutableLiveData<>();
-    private final MutableLiveData<String> searchError = new MutableLiveData<>();
+    public LiveData<List<Book>> getSearchResults() {
+        return searchResults;
+    }
+
+    public LiveData<String> getSearchError() {
+        return searchError;
+    }
 
     public void searchBooks(String query) {
         Log.d(TAG, "Searching for: " + query);

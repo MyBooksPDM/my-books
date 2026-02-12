@@ -33,8 +33,10 @@ public class BookRepository {
         this.bookDao = db.bookDao();
         this.apiService = RetrofitClient.getInstance().getGoogleBooksService();
     }
+
     private final MutableLiveData<List<Book>> searchResults = new MutableLiveData<>();
     private final MutableLiveData<String> searchError = new MutableLiveData<>();
+
     public void searchBooks(String query) {
         Log.d(TAG, "Searching for: " + query);
 

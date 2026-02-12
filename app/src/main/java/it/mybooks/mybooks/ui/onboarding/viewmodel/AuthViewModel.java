@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.ui.onboarding;
+package it.mybooks.mybooks.ui.onboarding.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 

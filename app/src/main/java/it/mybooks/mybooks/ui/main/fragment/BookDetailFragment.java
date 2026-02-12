@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.ui.detail;
+package it.mybooks.mybooks.ui.main.fragment;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,10 +18,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import it.mybooks.mybooks.R;
+import it.mybooks.mybooks.ui.main.viewmodel.BookViewModel;
 
 public class BookDetailFragment extends Fragment {
 
-    private BookDetailViewModel mViewModel;
+    private BookViewModel mViewModel;
 
     private TextView titleTextView;
     private TextView authorTextView;
@@ -47,7 +48,7 @@ public class BookDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Initialize ViewModel
-        mViewModel = new ViewModelProvider(this).get(BookDetailViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         if (getArguments() != null) {
             String bookId = getArguments().getString("id");
 

@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.ui.onboarding;
+package it.mybooks.mybooks.ui.onboarding.fragment;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import it.mybooks.mybooks.R;
+import it.mybooks.mybooks.ui.onboarding.viewmodel.AuthViewModel;
 
 public class LoginFragment extends Fragment {
 

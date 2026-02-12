@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.ui.search;
+package it.mybooks.mybooks.ui.main.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,10 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import it.mybooks.mybooks.R;
+import it.mybooks.mybooks.ui.main.adapter.BookAdapter;
+import it.mybooks.mybooks.ui.main.viewmodel.BookViewModel;
 
 public class SearchFragment extends Fragment {
 
-    private SearchViewModel mViewModel;
+    private BookViewModel mViewModel;
     private BookAdapter bookAdapter;
 
 
@@ -34,7 +36,7 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(BookViewModel.class);
 
         setupRecyclerView(view);
         setupSearchInput(view);

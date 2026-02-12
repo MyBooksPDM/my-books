@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="it.mybooks.mybooks.ui.onboarding.WelcomeFragment"
+        android:name="it.mybooks.mybooks.ui.onboarding.fragment.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="it.mybooks.mybooks.ui.onboarding.LoginFragment"
+        android:name="it.mybooks.mybooks.ui.onboarding.fragment.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="it.mybooks.mybooks.ui.onboarding.RegisterFragment"
+        android:name="it.mybooks.mybooks.ui.onboarding.fragment.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
         <action
@@ -40,12 +40,12 @@
     </fragment>
     <fragment
         android:id="@+id/bookDetailFragment"
-        android:name="it.mybooks.mybooks.ui.detail.BookDetailFragment"
+        android:name="it.mybooks.mybooks.ui.main.fragment.BookDetailFragment"
         android:label="fragment_book_detail"
         tools:layout="@layout/fragment_book_detail" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="it.mybooks.mybooks.ui.profile.ProfileFragment"
+        android:name="it.mybooks.mybooks.ui.main.fragment.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="it.mybooks.mybooks.ui.search.SearchFragment"
+        android:name="it.mybooks.mybooks.ui.main.fragment.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search">
         <action

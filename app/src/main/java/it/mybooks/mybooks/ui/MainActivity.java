@@ -1,6 +1,7 @@
 package it.mybooks.mybooks.ui;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import it.mybooks.mybooks.R;
 
 public class MainActivity extends AppCompatActivity {
+    private final String TAG = MainActivity.class.getName();
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
 
@@ -45,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
                     R.id.profileFragment,
                     R.id.searchFragment
             ).build();
+
+            navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+                if (destination.getId() == R.id.welcomeFragment) {
+                    findViewById(R.id.bottomNav).setVisibility(View.GONE);
+                } else {
+                    findViewById(R.id.bottomNav).setVisibility(View.VISIBLE);
+                }
+            });
 
             // 3. Collega la ActionBar al NavController
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

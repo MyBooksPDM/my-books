@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.ui.profile;
+package it.mybooks.mybooks.ui.main.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +18,6 @@ import java.util.List;
 import it.mybooks.mybooks.R;
 import it.mybooks.mybooks.data.model.Book;
 
-//BookAdapter è un Adapter per un RecyclerView che visualizza una lista di libri nel profilo utente.
-//Usa un ViewHolder personalizzato
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ProfileViewHolder> {
 
     private List<Book> books = new ArrayList<>();

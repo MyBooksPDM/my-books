@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.ui.profile;
+package it.mybooks.mybooks.ui.main.fragment;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,10 +18,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import it.mybooks.mybooks.R;
+import it.mybooks.mybooks.ui.main.adapter.BookAdapter;
+import it.mybooks.mybooks.ui.main.viewmodel.BookViewModel;
 
 public class ProfileFragment extends Fragment {
 
-    private ProfileViewModel mViewModel;
+    private BookViewModel mViewModel;
 
     private BookAdapter bookAdapter;
 
@@ -42,7 +44,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Initialize ViewModel
-        mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(BookViewModel.class);
 
         // Initialize views
         RecyclerView recyclerView = view.findViewById(R.id.profile_recycler_view);

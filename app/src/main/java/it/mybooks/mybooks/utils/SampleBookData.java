@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import it.mybooks.mybooks.model.Book;
+import it.mybooks.mybooks.data.model.Book;
 
 public class SampleBookData {
 
@@ -19,7 +19,7 @@ public class SampleBookData {
         */
 
         Book book1 = new Book();
-        book1.setId("sample-001");
+        book1.setGid("sample-001");
         book1.setTitle("The Name of the Rose");
         book1.setAuthors(Arrays.asList("Umberto Eco"));
         book1.setPublisher("Harcourt");
@@ -34,7 +34,7 @@ public class SampleBookData {
         books.add(book1);
 
         Book book2 = new Book();
-        book2.setId("sample-002");
+        book2.setGid("sample-002");
         book2.setTitle("1984");
         book2.setAuthors(Arrays.asList("George Orwell"));
         book2.setPublisher("Secker & Warburg");
@@ -50,7 +50,7 @@ public class SampleBookData {
         books.add(book2);
 
         Book book3 = new Book();
-        book3.setId("sample-003");
+        book3.setGid("sample-003");
         book3.setTitle("To Kill a Mockingbird");
         book3.setAuthors(Arrays.asList("Harper Lee"));
         book3.setPublisher("J.B. Lippincott & Co.");
@@ -66,7 +66,7 @@ public class SampleBookData {
         books.add(book3);
 
         Book book4 = new Book();
-        book4.setId("sample-004");
+        book4.setGid("sample-004");
         book4.setTitle("The Great Gatsby");
         book4.setAuthors(Arrays.asList("F. Scott Fitzgerald"));
         book4.setPublisher("Charles Scribner's Sons");
@@ -82,7 +82,7 @@ public class SampleBookData {
         books.add(book4);
 
         Book book5 = new Book();
-        book5.setId("sample-005");
+        book5.setGid("sample-005");
         book5.setTitle("Pride and Prejudice");
         book5.setAuthors(Arrays.asList("Jane Austen"));
         book5.setPublisher("T. Egerton");
@@ -98,7 +98,7 @@ public class SampleBookData {
         books.add(book5);
 
         Book book6 = new Book();
-        book6.setId("sample-006");
+        book6.setGid("sample-006");
         book6.setTitle("The Catcher in the Rye");
         book6.setAuthors(Arrays.asList("J.D. Salinger"));
         book6.setPublisher("Little, Brown and Company");
@@ -114,7 +114,7 @@ public class SampleBookData {
         books.add(book6);
 
         Book book7 = new Book();
-        book7.setId("sample-007");
+        book7.setGid("sample-007");
         book7.setTitle("One Hundred Years of Solitude");
         book7.setAuthors(Arrays.asList("Gabriel García Márquez"));
         book7.setPublisher("Harper & Row");
@@ -130,7 +130,7 @@ public class SampleBookData {
         books.add(book7);
 
         Book book8 = new Book();
-        book8.setId("sample-008");
+        book8.setGid("sample-008");
         book8.setTitle("The Lord of the Rings");
         book8.setAuthors(Arrays.asList("J.R.R. Tolkien"));
         book8.setPublisher("Allen & Unwin");
@@ -146,7 +146,7 @@ public class SampleBookData {
         books.add(book8);
 
         Book book9 = new Book();
-        book9.setId("sample-009");
+        book9.setGid("sample-009");
         book9.setTitle("Harry Potter and the Philosopher's Stone");
         book9.setAuthors(Arrays.asList("J.K. Rowling"));
         book9.setPublisher("Bloomsbury");
@@ -162,7 +162,7 @@ public class SampleBookData {
         books.add(book9);
 
         Book book10 = new Book();
-        book10.setId("sample-010");
+        book10.setGid("sample-010");
         book10.setTitle("The Hobbit");
         book10.setSubtitle("or There and Back Again");
         book10.setAuthors(Arrays.asList("J.R.R. Tolkien"));

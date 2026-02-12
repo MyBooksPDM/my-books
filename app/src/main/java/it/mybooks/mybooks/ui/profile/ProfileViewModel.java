@@ -1,9 +1,5 @@
 package it.mybooks.mybooks.ui.profile;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.mybooks.mybooks.model.Book;
+import it.mybooks.mybooks.data.model.Book;
 import it.mybooks.mybooks.utils.SampleBookData;
 
 public class ProfileViewModel extends ViewModel {
@@ -39,7 +35,7 @@ public class ProfileViewModel extends ViewModel {
         }
         List<Book> updatedBooks = new ArrayList<>();
         for(Book book : currentBook){
-            if(!book.getId().equals(bookId)){
+            if(!book.getGid().equals(bookId)){
                 updatedBooks.add(book);
             }
         }

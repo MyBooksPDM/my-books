@@ -1,60 +1,86 @@
-package it.mybooks.mybooks.model;
+package it.mybooks.mybooks.data.model;
+
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import java.util.List;
+
+import it.mybooks.mybooks.utils.Converters;
+
+@Entity(tableName = "books")
+@TypeConverters(Converters.class)
 public class Book {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "uid")
+    private long uid; // Unique identifier for Room database
 
-    // Unique identifier of the book (from Google Books API)
-    private String id;
-
-    // Basic book information
+    @ColumnInfo(name = "gid")
+    private String gid; // Unique identifier from Google Books API
+    @ColumnInfo(name = "title")
     private String title;
+    @ColumnInfo(name = "subtitle")
     private String subtitle;
+
+    @ColumnInfo(name = "authors")
     private List<String> authors;
+
+    @ColumnInfo(name = "publisher")
     private String publisher;
+
+    @ColumnInfo(name = "published_date")
     private String publishedDate;
+
+    @ColumnInfo(name = "description")
     private String description;
 
-    // ISBN identifiers (extracted and normalized)
+    // ISBN identifiers
+    @ColumnInfo(name = "isbn10")
     private String isbn10;
+
+    @ColumnInfo(name = "isbn13")
     private String isbn13;
-
-    // Additional details
+    @ColumnInfo(name = "page_count")
     private int pageCount;
+
+    @ColumnInfo(name = "categories")
     private List<String> categories;
+
+    @ColumnInfo(name = "language")
     private String language;
-    private String maturityRating;
-
-    // Image URLs
+    @ColumnInfo(name = "small_thumbnail")
     private String smallThumbnail;
+
+    @ColumnInfo(name = "thumbnail")
     private String thumbnail;
-
-    // External links
-    private String previewLink;
-    private String infoLink;
-
-    // Ratings
+    @ColumnInfo(name = "average_rating")
     private double averageRating;
+
+    @ColumnInfo(name = "ratings_count")
     private int ratingsCount;
 
-    // Empty constructor (required by serializers and databases)
+    @ColumnInfo(name = "saved_timestamp")
+    private long savedTimestamp;
+
     public Book() {
+        // Default constructor required for Room
     }
 
-    // Constructor with essential fields
-    public Book(String id, String title, List<String> authors, String publishedDate) {
-        this.id = id;
+    public Book(String gid, String title, List<String> authors, String publishedDate) {
+        this.gid = gid;
         this.title = title;
         this.authors = authors;
         this.publishedDate = publishedDate;
     }
 
-    /* -------------------- GETTERS & SETTERS -------------------- */
-
-    public String getId() {
-        return id;
+    public String getGid() {
+        return gid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setGid(String gid) {
+        this.gid = gid;
     }
 
     public String getTitle() {
@@ -145,14 +171,6 @@ public class Book {
         this.language = language;
     }
 
-    public String getMaturityRating() {
-        return maturityRating;
-    }
-
-    public void setMaturityRating(String maturityRating) {
-        this.maturityRating = maturityRating;
-    }
-
     public String getSmallThumbnail() {
         return smallThumbnail;
     }
@@ -167,22 +185,6 @@ public class Book {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-    }
-
-    public String getPreviewLink() {
-        return previewLink;
-    }
-
-    public void setPreviewLink(String previewLink) {
-        this.previewLink = previewLink;
-    }
-
-    public String getInfoLink() {
-        return infoLink;
-    }
-
-    public void setInfoLink(String infoLink) {
-        this.infoLink = infoLink;
     }
 
     public double getAverageRating() {
@@ -201,17 +203,15 @@ public class Book {
         this.ratingsCount = ratingsCount;
     }
 
-    /* -------------------- UTILITY METHODS -------------------- */
-
     /**
-     * Returns the preferred ISBN (ISBN-13 if available, otherwise ISBN-10)
+     * Get the primary ISBN (prefer ISBN-13 if available, otherwise ISBN-10)
      */
     public String getPrimaryIsbn() {
         return isbn13 != null ? isbn13 : isbn10;
     }
 
     /**
-     * Returns authors in a readable format
+     * Get authors as a comma-separated string
      */
     public String getAuthorsAsString() {
         if (authors == null || authors.isEmpty()) {
@@ -221,7 +221,7 @@ public class Book {
     }
 
     /**
-     * Extracts the publication year from the published date
+     * Get the publication year from the published date
      */
     public String getPublicationYear() {
         if (publishedDate != null && publishedDate.length() >= 4) {
@@ -231,7 +231,17 @@ public class Book {
     }
 
     /**
-     * Returns the main category of the book
+     * Get categories as a comma-separated string
+     */
+    public String getCategoriesAsString() {
+        if (categories == null || categories.isEmpty()) {
+            return "Uncategorized";
+        }
+        return String.join(", ", categories);
+    }
+
+    /**
+     * Get the primary category/genre
      */
     public String getPrimaryCategory() {
         if (categories != null && !categories.isEmpty()) {
@@ -241,26 +251,44 @@ public class Book {
     }
 
     /**
-     * Checks whether a thumbnail image is available
+     * Check if the book has a thumbnail image
      */
     public boolean hasThumbnail() {
         return thumbnail != null && !thumbnail.isEmpty();
     }
 
     /**
-     * Returns the best available thumbnail URL
+     * Get the best available thumbnail (prefer regular thumbnail over small)
      */
     public String getBestThumbnail() {
         return thumbnail != null ? thumbnail : smallThumbnail;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Book{" +
-                "id='" + id + '\'' +
+                "id='" + gid + '\'' +
                 ", title='" + title + '\'' +
+                ", authors=" + authors +
                 ", publishedDate='" + publishedDate + '\'' +
+                ", isbn13='" + isbn13 + '\'' +
                 '}';
     }
-}
 
+    public long getUid() {
+        return uid;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
+    public long getSavedTimestamp() {
+        return savedTimestamp;
+    }
+
+    public void setSavedTimestamp(long savedTimestamp) {
+        this.savedTimestamp = savedTimestamp;
+    }
+}

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import it.mybooks.mybooks.R;
@@ -39,7 +38,7 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Initialize ViewModel
@@ -57,7 +56,7 @@ public class ProfileFragment extends Fragment {
         // Set click listener for book items
         bookAdapter.setOnBookClickListener(book -> {
             Bundle bundle = new Bundle();
-            bundle.putString("id", book.getId());
+            bundle.putString("id", book.getGid());
             // Navigate to detail fragment when a book is clicked
             Navigation.findNavController(view)
                     .navigate(R.id.action_profileFragment_to_bookDetailFragment, bundle);
@@ -68,7 +67,7 @@ public class ProfileFragment extends Fragment {
                     .setTitle("Remove book")
                     .setMessage("Do you want to remove \"" + book.getTitle() + "\" from your saved books?")
                     .setPositiveButton("Remove", (dialog, which) ->
-                        mViewModel.deleteBook(book.getId())
+                            mViewModel.deleteBook(book.getGid())
                     )
                     .setNegativeButton("Cancel", null)
                     .show();
@@ -76,13 +75,13 @@ public class ProfileFragment extends Fragment {
 
         // Observe books data from ViewModel
         mViewModel.getBooks().observe(getViewLifecycleOwner(), books -> {
-                    bookAdapter.setBooks(books);
-                    // Update saved books count
-                    if (books != null) {
-                        savedBooksCountTextView.setText(String.valueOf(books.size()));
-                    } else {
-                        savedBooksCountTextView.setText("0");
-                    }
+            bookAdapter.setBooks(books);
+            // Update saved books count
+            if (books != null) {
+                savedBooksCountTextView.setText(String.valueOf(books.size()));
+            } else {
+                savedBooksCountTextView.setText("0");
+            }
         });
 
         mViewModel.getBookCount().observe(getViewLifecycleOwner(), count -> {

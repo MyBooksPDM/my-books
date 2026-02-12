@@ -8,7 +8,7 @@ import java.util.List;
 
 import it.mybooks.mybooks.data.local.AppDatabase;
 import it.mybooks.mybooks.data.local.BookDao;
-import it.mybooks.mybooks.model.Book;
+import it.mybooks.mybooks.data.model.Book;
 import it.mybooks.mybooks.utils.AppExecutors;
 
 public class BookRepository {

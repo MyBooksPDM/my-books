@@ -9,7 +9,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import it.mybooks.mybooks.model.Book;
+import it.mybooks.mybooks.data.model.Book;
 
 @Dao
 public interface BookDao {

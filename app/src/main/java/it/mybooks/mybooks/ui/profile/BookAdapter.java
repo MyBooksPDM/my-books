@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.mybooks.mybooks.R;
-import it.mybooks.mybooks.model.Book;
+import it.mybooks.mybooks.data.model.Book;
 
 //BookAdapter è un Adapter per un RecyclerView che visualizza una lista di libri nel profilo utente.
 //Usa un ViewHolder personalizzato

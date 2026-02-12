@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.model;
+package it.mybooks.mybooks.data.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

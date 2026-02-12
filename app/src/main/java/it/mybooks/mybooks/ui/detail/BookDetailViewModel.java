@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import it.mybooks.mybooks.model.Book;
+import it.mybooks.mybooks.data.model.Book;
 import it.mybooks.mybooks.utils.SampleBookData;
 
 public class BookDetailViewModel extends ViewModel {

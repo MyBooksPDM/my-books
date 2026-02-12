@@ -1,6 +1,7 @@
 package it.mybooks.mybooks.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +15,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import it.mybooks.mybooks.R;
 
@@ -63,6 +66,32 @@ public class MainActivity extends AppCompatActivity {
             BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
             NavigationUI.setupWithNavController(bottomNav, navController);
         }
+
+        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                Log.d(TAG, "onCreate: user logged in: " + user.getUid());
+                // User is logged in!
+//                String userId = user.getUid();
+
+                // 1. Initialize your Repository with the new User ID
+                // 2. Start the Firestore Sync for "users/{userId}/books"
+//                bookRepository.initSync(userId);
+            } else {
+                Log.d(TAG, "onCreate: user logged out");
+                // User is logged out!
+                // Clear local sensitive data or stop syncing
+//                bookRepository.stopSync();
+                navigateToLoginFragment();
+            }
+        });
+    }
+
+    private void navigateToLoginFragment() {
+        navController.navigate(R.id.welcomeFragment, null,
+                new androidx.navigation.NavOptions.Builder()
+                        .setPopUpTo(R.id.nav_graph, true) // Clear the entire back stack
+                        .build());
     }
 
     @Override

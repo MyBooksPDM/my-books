@@ -9,15 +9,15 @@
       android:translateY="16.2">
     <path
         android:pathData="M22,73.56C25.43,73.56 43.93,72.73 52.86,78V42.57C33.89,32.94 22,33.56 22,33.56C22,33.56 18.57,33.56 18.57,36.99C18.57,40.42 18.57,68.78 18.57,70.13C18.57,71.48 18.57,73.56 22,73.56Z"
-        android:fillColor="@color/md_theme_primary"/>
+        android:fillColor="#6D5E0F"/>
     <path
         android:pathData="M86,73.54C82.57,73.54 64.07,72.72 55.14,77.99V42.56C74.11,32.93 86,33.54 86,33.54C86,33.54 89.43,33.54 89.43,36.97C89.43,40.4 89.43,68.76 89.43,70.12C89.43,71.47 89.43,73.54 86,73.54Z"
-        android:fillColor="@color/md_theme_primary"/>
+        android:fillColor="#6D5E0F"/>
     <path
         android:pathData="M25.43,70.13C28.86,70.13 45.07,70.44 52.86,78V42.57C50.78,27.95 25.43,30.13 25.43,30.13C25.43,30.13 22,30.13 22,33.56C22,36.99 22,65.35 22,66.7C22,68.06 22,70.13 25.43,70.13Z"
-        android:fillColor="@color/md_theme_primaryContainer"/>
+        android:fillColor="#F8E287"/>
     <path
         android:pathData="M82.57,70.12C79.14,70.12 62.93,70.43 55.14,77.99V42.56C57.22,27.93 82.57,30.12 82.57,30.12C82.57,30.12 86,30.12 86,33.54C86,36.97 86,65.33 86,66.69C86,68.04 86,70.12 82.57,70.12Z"
-        android:fillColor="@color/md_theme_primaryContainer"/>
+        android:fillColor="#F8E287"/>
   </group>
 </vector>

@@ -16,6 +16,7 @@
 
         <Button
             style="@style/Widget.Material3.Button.Icon"
+            android:id="@+id/buttonGoogle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checkable="true"

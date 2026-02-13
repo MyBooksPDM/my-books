@@ -9,14 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import it.mybooks.mybooks.R;
 
@@ -67,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupWithNavController(bottomNav, navController);
         }
 
-        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
+        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        mainViewModel.userSession.observe(this, user -> {
             if (user != null) {
                 Log.d(TAG, "onCreate: user logged in: " + user.getUid());
                 // User is logged in!
@@ -76,19 +76,18 @@ public class MainActivity extends AppCompatActivity {
 
                 // 1. Initialize your Repository with the new User ID
                 // 2. Start the Firestore Sync for "users/{userId}/books"
-//                bookRepository.initSync(userId);
+                navigateToFragment(R.id.profileFragment);
             } else {
                 Log.d(TAG, "onCreate: user logged out");
                 // User is logged out!
                 // Clear local sensitive data or stop syncing
-//                bookRepository.stopSync();
-                navigateToLoginFragment();
+                navigateToFragment(R.id.welcomeFragment);
             }
         });
     }
 
-    private void navigateToLoginFragment() {
-        navController.navigate(R.id.welcomeFragment, null,
+    private void navigateToFragment(int destinationId) {
+        navController.navigate(destinationId, null,
                 new androidx.navigation.NavOptions.Builder()
                         .setPopUpTo(R.id.nav_graph, true) // Clear the entire back stack
                         .build());

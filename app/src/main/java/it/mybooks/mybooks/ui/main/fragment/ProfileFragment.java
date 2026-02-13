@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +20,7 @@ import android.widget.TextView;
 import it.mybooks.mybooks.R;
 import it.mybooks.mybooks.ui.main.adapter.BookAdapter;
 import it.mybooks.mybooks.ui.main.viewmodel.BookViewModel;
+import it.mybooks.mybooks.ui.onboarding.viewmodel.AuthViewModel;
 
 public class ProfileFragment extends Fragment {
 
@@ -43,6 +43,20 @@ public class ProfileFragment extends Fragment {
         savedBooksCountTextView = view.findViewById(R.id.saved_books_count);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
+        AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+
+        View profileCard = view.findViewById(R.id.profile_card);
+
+        //logout on long click just for testing purposes, will be moved to settings in the future
+        profileCard.setOnLongClickListener(v -> {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Sign out")
+                    .setMessage("Do you want to sign out?")
+                    .setPositiveButton("Sign out", (dialog, which) -> signOut(authViewModel))
+                    .setNegativeButton("Cancel", null)
+                    .show();
+            return true;
+        });
 
         setupRecyclerView();
 
@@ -53,6 +67,10 @@ public class ProfileFragment extends Fragment {
                 updateSavedBooksCount(books.size());
             }
         });
+    }
+
+    private void signOut(AuthViewModel authViewModel) {
+        authViewModel.signOut();
     }
 
     private void updateSavedBooksCount(int count) {

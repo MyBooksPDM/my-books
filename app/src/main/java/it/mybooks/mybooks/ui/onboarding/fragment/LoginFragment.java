@@ -17,11 +17,7 @@ import it.mybooks.mybooks.ui.onboarding.viewmodel.AuthViewModel;
 
 public class LoginFragment extends Fragment {
 
-    private AuthViewModel mViewModel;
-
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
-    }
+    private AuthViewModel authViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

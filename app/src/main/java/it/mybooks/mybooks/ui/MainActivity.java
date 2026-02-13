@@ -51,10 +51,12 @@ public class MainActivity extends AppCompatActivity {
             ).build();
 
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-                if (destination.getId() == R.id.welcomeFragment) {
+                if (destination.getId() == R.id.welcomeFragment || destination.getId() == R.id.loginFragment || destination.getId() == R.id.registerFragment) {
                     findViewById(R.id.bottomNav).setVisibility(View.GONE);
+                    findViewById(R.id.toolbar).setVisibility(View.GONE);
                 } else {
                     findViewById(R.id.bottomNav).setVisibility(View.VISIBLE);
+                    findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
                 }
             });
 

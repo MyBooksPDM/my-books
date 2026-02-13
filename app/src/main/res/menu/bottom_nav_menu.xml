@@ -3,7 +3,7 @@
 
     <item
         android:icon="@drawable/round_local_library_24"
-        android:id="@+id/profileFragment"
+        android:id="@+id/libraryFragment"
         android:title="@string/profile" />
     <item
         android:icon="@drawable/round_search_24"

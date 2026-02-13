@@ -22,7 +22,7 @@ import it.mybooks.mybooks.ui.main.adapter.BookAdapter;
 import it.mybooks.mybooks.ui.main.viewmodel.BookViewModel;
 import it.mybooks.mybooks.ui.onboarding.viewmodel.AuthViewModel;
 
-public class ProfileFragment extends Fragment {
+public class LibraryFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_library, container, false);
     }
 
     @Override
@@ -87,9 +87,9 @@ public class ProfileFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         bookAdapter.setOnBookClickListener(book -> {
-            ProfileFragmentDirections.ActionProfileFragmentToBookDetailFragment action =
-                    ProfileFragmentDirections.actionProfileFragmentToBookDetailFragment(book);
-            NavHostFragment.findNavController(ProfileFragment.this).navigate(action);
+            LibraryFragmentDirections.ActionLibraryFragmentToBookDetailFragment action =
+                    LibraryFragmentDirections.actionLibraryFragmentToBookDetailFragment(book);
+            NavHostFragment.findNavController(LibraryFragment.this).navigate(action);
         });
 
         bookAdapter.setOnBookLongClickListener(book -> {

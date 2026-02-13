@@ -80,6 +80,40 @@ public class AuthViewModel extends AndroidViewModel {
         );
     }
 
+    public void signInWithEmail(String email, String password) {
+        isLoading.setValue(true);
+        repository.loginWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
+            @Override
+            public void onSuccess() {
+                isLoading.setValue(false);
+                // Navigation is handled by MainActivity observing MainViewModel
+            }
+
+            @Override
+            public void onError(String msg) {
+                isLoading.setValue(false);
+                errorMessage.setValue(msg);
+            }
+        });
+    }
+
+    public void signUpWithEmail(String email, String password) {
+        isLoading.setValue(true);
+        repository.registerWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
+            @Override
+            public void onSuccess() {
+                isLoading.setValue(false);
+                // Navigation is handled by MainActivity observing MainViewModel
+            }
+
+            @Override
+            public void onError(String msg) {
+                isLoading.setValue(false);
+                errorMessage.setValue(msg);
+            }
+        });
+    }
+
     private void handleSignInResult(GetCredentialResponse result) {
         // 4. Parse Token
         Credential credential = result.getCredential();

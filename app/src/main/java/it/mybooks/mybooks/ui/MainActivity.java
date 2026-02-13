@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
             appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.welcomeFragment,
-                    R.id.profileFragment,
+                    R.id.libraryFragment,
                     R.id.searchFragment
             ).build();
 
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // 1. Initialize your Repository with the new User ID
                 // 2. Start the Firestore Sync for "users/{userId}/books"
-                navigateToFragment(R.id.profileFragment);
+                navigateToFragment(R.id.libraryFragment);
             } else {
                 Log.d(TAG, "onCreate: user logged out");
                 // User is logged out!

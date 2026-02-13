@@ -56,30 +56,32 @@ public class UserRepository {
     }
 
 
-    public void loginWithEmailAndPassword(String email, String password) {
-        // Implement Firebase Authentication login logic here
+    public void loginWithEmailAndPassword(String email, String password, OnLoginListener listener) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Login successful, userLiveData will be updated by the auth state listener
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
+                        listener.onSuccess();
                     } else {
                         // Handle login failure (e.g., show error message)
                         userLiveData.postValue(null);
+                        listener.onError(task.getException().getMessage());
                     }
                 });
     }
 
-    public void registerWithEmailAndPassword(String email, String password) {
-        // Implement Firebase Authentication registration logic here
+    public void registerWithEmailAndPassword(String email, String password, OnLoginListener listener) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Registration successful, userLiveData will be updated by the auth state listener
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
+                        listener.onSuccess();
                     } else {
                         // Handle registration failure (e.g., show error message)
                         userLiveData.postValue(null);
+                        listener.onError(task.getException().getMessage());
                     }
                 });
     }

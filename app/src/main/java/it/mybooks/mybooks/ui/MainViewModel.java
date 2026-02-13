@@ -11,13 +11,12 @@ import com.google.firebase.auth.FirebaseUser;
 import it.mybooks.mybooks.data.repository.UserRepository;
 
 public class MainViewModel extends AndroidViewModel {
-    private UserRepository userRepo;
     // This LiveData tracks if we have a user or null
     public LiveData<FirebaseUser> userSession;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        userRepo = UserRepository.getInstance();
+        UserRepository userRepo = UserRepository.getInstance();
         userSession = userRepo.getUser();
     }
 

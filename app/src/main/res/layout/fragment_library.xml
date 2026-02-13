@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.main.fragment.ProfileFragment">
+    tools:context=".ui.main.fragment.LibraryFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/profile_card"

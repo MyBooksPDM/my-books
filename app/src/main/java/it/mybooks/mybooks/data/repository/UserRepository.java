@@ -1,5 +1,7 @@
 package it.mybooks.mybooks.data.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -9,6 +11,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class UserRepository {
+
+    private static final String TAG = UserRepository.class.getName();
     private static UserRepository instance;
     private FirebaseAuth firebaseAuth;
     private MutableLiveData<FirebaseUser> userLiveData;
@@ -75,10 +79,12 @@ public class UserRepository {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        Log.i(TAG, "registerWithEmailAndPassword: Registration successful for email: " + email);
                         // Registration successful, userLiveData will be updated by the auth state listener
                         userLiveData.postValue(firebaseAuth.getCurrentUser());
                         listener.onSuccess();
                     } else {
+                        Log.i(TAG, "registerWithEmailAndPassword: Registration failed for email: " + email + " with error: " + task.getException().getMessage());
                         // Handle registration failure (e.g., show error message)
                         userLiveData.postValue(null);
                         listener.onError(task.getException().getMessage());

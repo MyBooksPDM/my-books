@@ -19,9 +19,12 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 
+import it.mybooks.mybooks.BuildConfig;
 import it.mybooks.mybooks.data.repository.UserRepository;
 
 public class AuthViewModel extends AndroidViewModel {
+
+    private static final String SERVER_CLIENT_ID = BuildConfig.FIREBASE_SERVER_CLIENT_ID;
     private final UserRepository repository;
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
@@ -50,7 +53,7 @@ public class AuthViewModel extends AndroidViewModel {
         // 1. Build the Google Option
         GetGoogleIdOption googleIdOption = new GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
-                .setServerClientId("277340849889-9v9m43atsuldva49goav1jvc1id1o0u9.apps.googleusercontent.com") // TODO: Add your ID
+                .setServerClientId(SERVER_CLIENT_ID)
                 .setAutoSelectEnabled(true)
                 .build();
 

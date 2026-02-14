@@ -22,6 +22,7 @@ fun quote(value: String): String = "\"" + value.replace("\\", "\\\\").replace("\
 val env = loadEnv(rootProject.file(".env"))
 val googleBooksBaseUrl = env["GOOGLE_BOOKS_BASE_URL"] ?: "https://www.googleapis.com/books/v1/"
 val googleBooksApiKey = env["GOOGLE_BOOKS_API_KEY"] ?: ""
+val firebaseServerClientId = env["FIREBASE_SERVER_CLIENT_ID"] ?: ""
 
 android {
     namespace = "it.mybooks.mybooks"
@@ -44,6 +45,7 @@ android {
 
         buildConfigField("String", "GOOGLE_BOOKS_BASE_URL", quote(googleBooksBaseUrl))
         buildConfigField("String", "GOOGLE_BOOKS_API_KEY", quote(googleBooksApiKey))
+        buildConfigField("String", "FIREBASE_SERVER_CLIENT_ID", quote(firebaseServerClientId))
     }
 
     buildTypes {

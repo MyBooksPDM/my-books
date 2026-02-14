@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_activity), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fragmentContainerView);
+                .findFragmentById(R.id.fragment_container_view);
 
         // 2. Ottieni il NavController
         if (navHostFragment != null) {
@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
                 if (destination.getId() == R.id.welcomeFragment || destination.getId() == R.id.loginFragment || destination.getId() == R.id.registerFragment) {
-                    findViewById(R.id.bottomNav).setVisibility(View.GONE);
+                    findViewById(R.id.bottom_nav).setVisibility(View.GONE);
                     findViewById(R.id.toolbar).setVisibility(View.GONE);
                 } else {
-                    findViewById(R.id.bottomNav).setVisibility(View.VISIBLE);
+                    findViewById(R.id.bottom_nav).setVisibility(View.VISIBLE);
                     findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
                 }
             });
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
             // 4. Collega la BottomNavigationView al NavController
-            BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+            BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
             NavigationUI.setupWithNavController(bottomNav, navController);
         }
 

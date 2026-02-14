@@ -27,32 +27,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="64dp"
-            app:layout_constraintTop_toBottomOf="@id/titleTextView">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailTextField"
+                android:id="@+id/login_email"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
-                android:hint="email"
+                android:hint="@string/email"
+                app:startIconDrawable="@drawable/round_mail_24"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordTextField"
+                android:id="@+id/login_password"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
-                android:hint="password"
+                android:hint="@string/password"
+                app:startIconDrawable="@drawable/round_password_24"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true">
 
@@ -60,17 +60,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordTextField2"
+                android:id="@+id/repeat_password"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
-                android:hint="confirm password"
+                android:hint="@string/repeat_password"
+                app:startIconDrawable="@drawable/round_password_24"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true">
 
@@ -78,9 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
-
             </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -90,20 +87,20 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <Button
-                android:id="@+id/buttonRegister"
+                android:id="@+id/register_button"
                 style="@style/Widget.Material3.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="Create an account" />
+                android:text="@string/create_an_account" />
 
             <Button
-                android:id="@+id/buttonRegisterToLogin"
+                android:id="@+id/register_to_login_button"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="Already have an account? Login" />
+                android:text="@string/go_to_login" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

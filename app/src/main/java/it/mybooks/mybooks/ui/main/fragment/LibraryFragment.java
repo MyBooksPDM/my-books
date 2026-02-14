@@ -40,7 +40,7 @@ public class LibraryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.profile_recycler_view);
-        savedBooksCountTextView = view.findViewById(R.id.saved_books_count);
+        savedBooksCountTextView = view.findViewById(R.id.profile_saved_books_count);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);

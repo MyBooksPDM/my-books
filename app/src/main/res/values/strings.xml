@@ -4,5 +4,26 @@
     <string name="search">Search</string>
 
     <string name="isbn_format">ISBN: %s</string>
+    <string name="book_cover_image">Book cover image</string>
+    <string name="book_rating_star">★</string>
+    <string name="book_details">Details</string>
+    <string name="book_isbn">ISBN</string>
+    <string name="book_pages">Pages</string>
+    <string name="book_language">Language</string>
+    <string name="book_categories">Categories</string>
+    <string name="book_description">Description</string>
+    <string name="save_book">Save book</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgotten_password">Did you forget your password?</string>
+    <string name="login">Login</string>
+    <string name="go_to_register">Don\'t have an account? Register</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="go_to_login">Already have an account? Login</string>
+    <string name="search_your_book">Search your book</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="or">or</string>
+    <string name="use_email_and_password">Use email and password</string>
 
 </resources>

@@ -21,10 +21,6 @@ public class WelcomeFragment extends Fragment {
 
     private AuthViewModel authViewModel;
 
-    public static WelcomeFragment newInstance() {
-        return new WelcomeFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -37,7 +33,7 @@ public class WelcomeFragment extends Fragment {
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
-        Button googleLoginButton = view.findViewById(R.id.buttonGoogle);
+        Button googleLoginButton = view.findViewById(R.id.google_button);
 
         googleLoginButton.setOnClickListener(v -> {
             authViewModel.signInWithGoogle(getActivity());
@@ -54,7 +50,7 @@ public class WelcomeFragment extends Fragment {
             }
         });
 
-        Button b = view.findViewById(R.id.buttonEmailAndPassword);
+        Button b = view.findViewById(R.id.email_button);
 
         b.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_loginFragment);

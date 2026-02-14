@@ -43,6 +43,10 @@ public class BookViewModel extends AndroidViewModel {
         return searchResults;
     }
 
+    public LiveData<Boolean> getIsLoading() {
+        return repository.getIsLoading();
+    }
+
     public LiveData<List<Book>> getSavedBooks() {
         return savedBooks;
     }

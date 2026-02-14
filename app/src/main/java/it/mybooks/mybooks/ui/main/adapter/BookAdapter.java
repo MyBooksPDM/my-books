@@ -75,11 +75,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ProfileViewHol
 
         public ProfileViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.bookTitle);
-            authorTextView = itemView.findViewById(R.id.bookAuthor);
-            yearTextView = itemView.findViewById(R.id.bookYear);
-            isbnTextView = itemView.findViewById(R.id.bookIsbn);
-            coverImageView = itemView.findViewById(R.id.bookCoverImage);
+            titleTextView = itemView.findViewById(R.id.book_card_title);
+            authorTextView = itemView.findViewById(R.id.book_card_author);
+            yearTextView = itemView.findViewById(R.id.book_card_year);
+            isbnTextView = itemView.findViewById(R.id.book_card_isbn);
+            coverImageView = itemView.findViewById(R.id.book_card_cover_image);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();

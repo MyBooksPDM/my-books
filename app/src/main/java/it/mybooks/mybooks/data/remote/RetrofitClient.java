@@ -3,6 +3,7 @@ package it.mybooks.mybooks.data.remote;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import it.mybooks.mybooks.BuildConfig;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -17,11 +18,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitClient {
 
-    private static final String BASE_URL = "https://www.googleapis.com/books/v1/";
+    private static final String BASE_URL = BuildConfig.GOOGLE_BOOKS_BASE_URL;
 
-    // TODO: Add your Google Books API key here for better rate limits
-    // Get one at: https://console.cloud.google.com/apis/credentials
-    private static final String API_KEY = null; // Set to your API key or keep null for anonymous access
+    private static final String API_KEY = BuildConfig.GOOGLE_BOOKS_API_KEY;
 
     private static RetrofitClient instance;
     private final Retrofit retrofit;

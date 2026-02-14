@@ -4,10 +4,33 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+fun loadEnv(file: File): Map<String, String> {
+    if (!file.exists()) return emptyMap()
+    return file.readLines()
+        .map { it.trim() }
+        .filter { it.isNotEmpty() && !it.startsWith("#") && it.contains("=") }
+        .associate {
+            val idx = it.indexOf("=")
+            val key = it.substring(0, idx).trim()
+            val value = it.substring(idx + 1).trim()
+            key to value
+        }
+}
+
+fun quote(value: String): String = "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
+
+val env = loadEnv(rootProject.file(".env"))
+val googleBooksBaseUrl = env["GOOGLE_BOOKS_BASE_URL"] ?: "https://www.googleapis.com/books/v1/"
+val googleBooksApiKey = env["GOOGLE_BOOKS_API_KEY"] ?: ""
+
 android {
     namespace = "it.mybooks.mybooks"
     compileSdk {
         version = release(36)
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     defaultConfig {
@@ -18,6 +41,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "GOOGLE_BOOKS_BASE_URL", quote(googleBooksBaseUrl))
+        buildConfigField("String", "GOOGLE_BOOKS_API_KEY", quote(googleBooksApiKey))
     }
 
     buildTypes {

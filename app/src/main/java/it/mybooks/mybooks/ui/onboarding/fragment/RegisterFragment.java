@@ -33,6 +33,7 @@ public class RegisterFragment extends Fragment {
     private TextInputEditText passwordEditText;
     private TextInputEditText confirmPasswordEditText;
     private Button registerButton;
+    private Button buttonRegisterToLogin;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -47,11 +48,11 @@ public class RegisterFragment extends Fragment {
         authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
         // Initialize views
-        Button buttonRegisterToLogin = view.findViewById(R.id.buttonRegisterToLogin);
-        registerButton = view.findViewById(R.id.buttonRegister);
-        emailInput = view.findViewById(R.id.emailTextField);
-        passwordInput = view.findViewById(R.id.passwordTextField);
-        confirmPasswordInput = view.findViewById(R.id.passwordTextField2);
+        buttonRegisterToLogin = view.findViewById(R.id.register_to_login_button);
+        registerButton = view.findViewById(R.id.register_button);
+        emailInput = view.findViewById(R.id.login_email);
+        passwordInput = view.findViewById(R.id.login_password);
+        confirmPasswordInput = view.findViewById(R.id.repeat_password);
 
         emailEditText = (TextInputEditText) emailInput.getEditText();
         passwordEditText = (TextInputEditText) passwordInput.getEditText();

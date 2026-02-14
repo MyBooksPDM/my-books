@@ -31,6 +31,7 @@ public class LoginFragment extends Fragment {
     private TextInputEditText emailEditText;
     private TextInputEditText passwordEditText;
     private Button loginButton;
+    private Button switchToRegisterButton;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -45,10 +46,14 @@ public class LoginFragment extends Fragment {
         authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
         // Initialize views
-        loginButton = view.findViewById(R.id.loginButton);
-        Button switchToRegisterButton = view.findViewById(R.id.buttonLoginToRegister);
-        emailInput = view.findViewById(R.id.emailTextField);
-        passwordInput = view.findViewById(R.id.passwordTextField);
+        loginButton = view.findViewById(R.id.login_button);
+        switchToRegisterButton = view.findViewById(R.id.login_to_register_button);
+        emailInput = view.findViewById(R.id.login_email);
+        passwordInput = view.findViewById(R.id.login_password);
+
+        loginButton.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_profileFragment);
+        });
 
         emailEditText = (TextInputEditText) emailInput.getEditText();
         passwordEditText = (TextInputEditText) passwordInput.getEditText();

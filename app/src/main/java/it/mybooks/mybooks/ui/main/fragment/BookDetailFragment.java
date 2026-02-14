@@ -101,25 +101,7 @@ public class BookDetailFragment extends Fragment {
     }
 
     private void displayBookData(Book book) {
-        bookTitle.setText(book.getTitle());
-        bookAuthor.setText(book.getAuthorsAsString());
-        bookDescription.setText(book.getDescription());
-        bookPublisherYear.setText(book.getPublicationYear());
-
-        if (book.getCategories() != null && !book.getCategories().isEmpty()) {
-            bookCategories.setText(TextUtils.join(", ", book.getCategories()));
-        } else {
-            bookCategories.setText("-");
-        }
-
-        String isbn = book.getPrimaryIsbn();
-        if (isbn != null) {
-            bookIsbn.setText(getString(R.string.isbn_format, isbn));
-        } else {
-            bookIsbn.setText("-");
-        }
-
-        // Load cover image using your preferred image loading library
+        // Load book cover image
         String imageUrl = book.getThumbnail();
         if (imageUrl == null || imageUrl.isEmpty()) {
             imageUrl = book.getSmallThumbnail();
@@ -130,38 +112,102 @@ public class BookDetailFragment extends Fragment {
                 .placeholder(android.R.drawable.ic_menu_gallery)
                 .error(android.R.drawable.ic_menu_gallery)
                 .into(bookCoverImage);
+
+        // Set title (always visible)
+        bookTitle.setText(book.getTitle());
+
+        // Set subtitle (show only if exists)
+        if (book.getSubtitle() != null && !book.getSubtitle().isEmpty()) {
+            bookSubtitle.setText(book.getSubtitle());
+            bookSubtitle.setVisibility(View.VISIBLE);
+        } else {
+            bookSubtitle.setVisibility(View.GONE);
+        }
+
+        // Set author
+        bookAuthor.setText(book.getAuthorsAsString());
+
+        // Set publisher and year
+        bookPublisherYear.setText(book.getPublisher() + " - " + book.getPublicationYear());
+
+        // Set rating (show only if rating exists)
+        if (book.getAverageRating() > 0) {
+            bookRating.setText(String.format("%.1f/5", book.getAverageRating()));
+            bookRatingsCount.setText("(" + book.getRatingsCount() + " ratings)");
+            ratingSection.setVisibility(View.VISIBLE);
+        } else {
+            ratingSection.setVisibility(View.GONE);
+        }
+
+        // Set ISBN
+        String isbn = book.getPrimaryIsbn();
+        if (isbn != null && !isbn.isEmpty()) {
+            bookIsbn.setText(isbn);
+        } else {
+            bookIsbn.setText("-");
+        }
+
+        // Set pages (show only if page count exists)
+        if (book.getPageCount() > 0) {
+            bookPages.setText(book.getPageCount() + " pages");
+            pagesSection.setVisibility(View.VISIBLE);
+        } else {
+            pagesSection.setVisibility(View.GONE);
+        }
+
+        // Set language (show only if exists)
+        if (book.getLanguage() != null && !book.getLanguage().isEmpty()) {
+            bookLanguage.setText(book.getLanguage());
+            languageSection.setVisibility(View.VISIBLE);
+        } else {
+            languageSection.setVisibility(View.GONE);
+        }
+
+        // Set categories (show only if exists)
+        if (book.getCategories() != null && !book.getCategories().isEmpty()) {
+            bookCategories.setText(TextUtils.join(", ", book.getCategories()));
+            categoriesSection.setVisibility(View.VISIBLE);
+        } else {
+            categoriesSection.setVisibility(View.GONE);
+        }
+
+        // Set description (show only if exists)
+        if (book.getDescription() != null && !book.getDescription().isEmpty()) {
+            bookDescription.setText(book.getDescription());
+            descriptionCard.setVisibility(View.VISIBLE);
+        } else {
+            descriptionCard.setVisibility(View.GONE);
+        }
     }
 
     private void initializeViews(View view) {
-        bookCoverImage = view.findViewById(R.id.coverImageView);
-        bookTitle = view.findViewById(R.id.titleTextView);
-        bookAuthor = view.findViewById(R.id.authorTextView);
-        bookPublisherYear = view.findViewById(R.id.publicationYearTextView);
-        bookIsbn = view.findViewById(R.id.isbnTextView);
-        bookCategories = view.findViewById(R.id.genreTextView);
-        bookDescription = view.findViewById(R.id.descriptionTextView);
-//        bookSubtitle = view.findViewById(R.id.book_subtitle);
-//        bookRating = view.findViewById(R.id.book_rating);
-//        bookRatingsCount = view.findViewById(R.id.book_ratings_count);
-//        ratingSection = view.findViewById(R.id.rating_section);
-//        bookPages = view.findViewById(R.id.book_pages);
-//        bookLanguage = view.findViewById(R.id.book_language);
-//        pagesSection = view.findViewById(R.id.pages_section);
-//        languageSection = view.findViewById(R.id.language_section);
-//        categoriesSection = view.findViewById(R.id.categories_section);
-//        descriptionCard = view.findViewById(R.id.description_card);
+        bookCoverImage = view.findViewById(R.id.book_cover_image);
+        bookTitle = view.findViewById(R.id.book_title);
+        bookSubtitle = view.findViewById(R.id.book_subtitle);
+        bookAuthor = view.findViewById(R.id.book_author);
+        bookPublisherYear = view.findViewById(R.id.book_publisher_year);
+        bookRating = view.findViewById(R.id.book_rating);
+        bookRatingsCount = view.findViewById(R.id.book_ratings_count);
+        ratingSection = view.findViewById(R.id.rating_section);
+        bookIsbn = view.findViewById(R.id.book_isbn);
+        bookPages = view.findViewById(R.id.book_pages);
+        pagesSection = view.findViewById(R.id.pages_section);
+        bookLanguage = view.findViewById(R.id.book_language);
+        languageSection = view.findViewById(R.id.language_section);
+        bookCategories = view.findViewById(R.id.book_categories);
+        categoriesSection = view.findViewById(R.id.categories_section);
+        bookDescription = view.findViewById(R.id.book_description);
+        descriptionCard = view.findViewById(R.id.description_card);
         fabSaveBook = view.findViewById(R.id.fab_save_book);
     }
 
     private void updateFabState() {
         if (isBookSaved) {
-            // Book is saved - show filled/red icon
-            fabSaveBook.setIconResource(android.R.drawable.ic_menu_close_clear_cancel);
-//            fabSaveBook.setText(R.string.fab_remove_from_library);
+            fabSaveBook.setIconResource(R.drawable.round_remove_24);
+            fabSaveBook.setText("Remove from library");
         } else {
-            // Book is not saved - show outline/plus icon
-            fabSaveBook.setIconResource(android.R.drawable.ic_menu_add);
-//            fabSaveBook.setText(R.string.fab_add_to_library);
+            fabSaveBook.setIconResource(R.drawable.round_add_24);
+            fabSaveBook.setText("Save to library");
         }
     }
 }

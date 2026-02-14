@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ public class SearchFragment extends Fragment {
     private BookAdapter bookAdapter;
     private RecyclerView recyclerView;
     private TextInputEditText searchBar;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -41,6 +43,7 @@ public class SearchFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.results_recyclerview);
         searchBar = view.findViewById(R.id.search_edit_text);
+        progressBar = view.findViewById(R.id.search_progress_bar);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
 
@@ -92,6 +95,14 @@ public class SearchFragment extends Fragment {
         bookViewModel.getSearchResults().observe(getViewLifecycleOwner(), books -> {
             if (books != null) {
                 bookAdapter.setBooks(books);
+            }
+        });
+
+        bookViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading != null && isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

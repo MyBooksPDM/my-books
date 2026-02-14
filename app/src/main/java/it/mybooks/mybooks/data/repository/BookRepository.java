@@ -30,6 +30,7 @@ public class BookRepository {
 
     private final MutableLiveData<List<Book>> searchResults = new MutableLiveData<>();
     private final MutableLiveData<String> searchError = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 
 
     public BookRepository(Application application) {
@@ -46,8 +47,13 @@ public class BookRepository {
         return searchError;
     }
 
+    public LiveData<Boolean> getIsLoading() {
+        return isLoading;
+    }
+
     public void searchBooks(String query) {
         Log.d(TAG, "Searching for: " + query);
+        isLoading.setValue(true);
 
         apiService.searchBooks(query).enqueue(new Callback<>() {
             @Override
@@ -71,6 +77,7 @@ public class BookRepository {
                     searchResults.setValue(new ArrayList<>());
                     searchError.setValue("Errore API: " + response.code());
                 }
+                isLoading.setValue(false);
             }
 
             @Override
@@ -78,6 +85,7 @@ public class BookRepository {
                 Log.e(TAG, "API call failed", t);
                 searchError.setValue("Errore di connessione: " + t.getMessage());
                 searchResults.setValue(new ArrayList<>());
+                isLoading.setValue(false);
             }
         });
     }

@@ -10,16 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="32dp"
+        android:layout_margin="16dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/google_button"
             style="@style/Widget.Material3.Button.Icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checkable="true"
-            android:text="Continue with Google"
+            android:text="@string/continue_with_google"
             app:icon="@drawable/big_g" />
 
         <LinearLayout
@@ -37,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="or" />
+                android:text="@string/or" />
 
             <View
                 android:layout_width="64dp"
@@ -46,12 +47,12 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/buttonEmailAndPassword"
+            android:id="@+id/email_button"
             style="@style/Widget.Material3.Button.Icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checkable="true"
-            android:text="Use email and password"
+            android:text="@string/use_email_and_password"
             app:icon="@drawable/round_mail_24" />
     </LinearLayout>
 </FrameLayout>

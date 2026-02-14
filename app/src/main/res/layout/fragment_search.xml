@@ -23,18 +23,16 @@
             android:id="@+id/search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search your book"
+            android:hint="@string/search_your_book"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:paddingVertical="12dp" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewExplore"
+        android:id="@+id/results_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:listitem="@layout/item_book" />
-
 </LinearLayout>

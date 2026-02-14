@@ -9,8 +9,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
-
+        android:fillViewport="true"
+        android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +33,6 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <!-- Book Cover Image -->
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="180dp"
                         android:layout_height="270dp"
@@ -44,13 +43,11 @@
                             android:id="@+id/book_cover_image"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:contentDescription=""
+                            android:contentDescription="@string/book_cover_image"
                             android:scaleType="centerCrop"
                             tools:src="@tools:sample/backgrounds/scenic" />
-
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Title and Subtitle -->
                     <TextView
                         android:id="@+id/book_title"
                         android:layout_width="match_parent"
@@ -75,7 +72,6 @@
                         tools:text="[Book subtitle]"
                         tools:visibility="visible" />
 
-                    <!-- Author -->
                     <TextView
                         android:id="@+id/book_author"
                         android:layout_width="match_parent"
@@ -86,7 +82,6 @@
                         android:textColor="?attr/colorPrimary"
                         tools:text="[Author(s)]" />
 
-                    <!-- Publisher and Year -->
                     <TextView
                         android:id="@+id/book_publisher_year"
                         android:layout_width="match_parent"
@@ -97,7 +92,6 @@
                         android:textColor="?attr/colorOnSurfaceVariant"
                         tools:text="[Publisher|Year]" />
 
-                    <!-- Rating Section -->
                     <LinearLayout
                         android:id="@+id/rating_section"
                         android:layout_width="wrap_content"
@@ -121,7 +115,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
-                            android:text="★"
+                            android:text="@string/book_rating_star"
                             android:textAppearance="?attr/textAppearanceTitleLarge"
                             android:textColor="?attr/colorPrimary" />
 
@@ -133,15 +127,10 @@
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             tools:text="([Ratings count] ratings)" />
-
                     </LinearLayout>
-
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
-
-            <!-- Book Details Section -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -162,12 +151,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Details"
+                        android:text="@string/book_details"
                         android:textAppearance="?attr/textAppearanceTitleMedium"
                         android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
 
-                    <!-- ISBN -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -178,7 +166,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="ISBN"
+                            android:text="@string/book_isbn"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -190,10 +178,8 @@
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             tools:text="[ISBN]" />
-
                     </LinearLayout>
 
-                    <!-- Pages -->
                     <LinearLayout
                         android:id="@+id/pages_section"
                         android:layout_width="match_parent"
@@ -207,7 +193,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Pages"
+                            android:text="@string/book_pages"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -219,10 +205,8 @@
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             tools:text="[pages count] pages" />
-
                     </LinearLayout>
 
-                    <!-- Language -->
                     <LinearLayout
                         android:id="@+id/language_section"
                         android:layout_width="match_parent"
@@ -236,7 +220,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Language"
+                            android:text="@string/book_language"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -248,10 +232,8 @@
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             tools:text="[Language]" />
-
                     </LinearLayout>
 
-                    <!-- Categories -->
                     <LinearLayout
                         android:id="@+id/categories_section"
                         android:layout_width="match_parent"
@@ -265,7 +247,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Categories"
+                            android:text="@string/book_categories"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -279,11 +261,8 @@
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             tools:text="[Categories]" />
-
                     </LinearLayout>
-
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -309,7 +288,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Description"
+                        android:text="@string/book_description"
                         android:textAppearance="?attr/textAppearanceTitleMedium"
                         android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
@@ -328,17 +307,15 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Floating Action Button - Save/Unsave -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_save_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:text="Save book"
+        android:text="@string/save_book"
         android:textColor="?attr/colorOnPrimaryContainer"
         app:backgroundTint="?attr/colorPrimaryContainer"
         app:icon="@drawable/round_add_24"
         app:iconTint="?attr/colorOnPrimaryContainer" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

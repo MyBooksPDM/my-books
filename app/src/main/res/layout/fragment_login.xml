@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="32dp">
+        android:layout_margin="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,12 +18,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailTextField"
+                android:id="@+id/login_email"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
-                android:hint="email"
+                android:hint="@string/email"
                 app:startIconDrawable="@drawable/round_mail_24">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -34,12 +34,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordTextField"
+                android:id="@+id/login_password"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
-                android:hint="password"
+                android:hint="@string/password"
                 app:startIconDrawable="@drawable/round_password_24">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="Did you forget your password?" />
+                android:text="@string/forgotten_password" />
 
         </LinearLayout>
 
@@ -65,20 +65,20 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/login_button"
                 style="@style/Widget.Material3.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="Login" />
+                android:text="@string/login" />
 
             <Button
-                android:id="@+id/buttonLoginToRegister"
+                android:id="@+id/login_to_register_button"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="Don't have an account? Register" />
+                android:text="@string/go_to_register" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

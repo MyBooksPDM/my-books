@@ -2,13 +2,14 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/book_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:clickable="true"
     android:focusable="true"
     app:cardBackgroundColor="?attr/colorSurfaceContainer"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="2dp"
     app:rippleColor="?attr/colorPrimary"
     app:strokeWidth="0dp">
@@ -18,9 +19,8 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
-        <!-- Book Cover -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/bookCoverCard"
+            android:id="@+id/book_card_cover"
             android:layout_width="80dp"
             android:layout_height="120dp"
             app:cardCornerRadius="8dp"
@@ -30,16 +30,14 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/bookCoverImage"
+                android:id="@+id/book_card_cover_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="Book cover image"
+                android:contentDescription="@string/book_cover_image"
                 android:scaleType="centerCrop"
                 tools:src="@tools:sample/backgrounds/scenic" />
-
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Book Information Container -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,23 +45,21 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/bookCoverCard"
+            app:layout_constraintStart_toEndOf="@id/book_card_cover"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Book Title -->
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookTitle"
+                android:id="@+id/book_card_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:textColor="?attr/colorOnSurface"
-                tools:text="The Name of the Rose" />
+                tools:text="[Title]" />
 
-            <!-- Book Author -->
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookAuthor"
+                android:id="@+id/book_card_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -71,16 +67,14 @@
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 android:textColor="?attr/colorPrimary"
-                tools:text="Umberto Eco" />
+                tools:text="[Author(s)]" />
 
-            <!-- Year and ISBN Container -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
-                <!-- Year Chip -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,7 +84,7 @@
                     app:cardElevation="0dp">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/bookYear"
+                        android:id="@+id/book_card_year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="12dp"
@@ -99,13 +93,11 @@
                         android:paddingBottom="6dp"
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="?attr/colorOnSecondaryContainer"
-                        tools:text="1980" />
-
+                        tools:text="[Year]" />
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- ISBN -->
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/bookIsbn"
+                    android:id="@+id/book_card_isbn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -115,12 +107,8 @@
                     android:maxLines="1"
                     android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    tools:text="ISBN: 978-0-156-00131-7" />
-
+                    tools:text="ISBN: [ISBN]" />
             </LinearLayout>
-
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>

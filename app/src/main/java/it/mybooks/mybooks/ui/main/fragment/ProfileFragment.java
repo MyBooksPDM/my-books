@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +39,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.profile_recycler_view);
-        savedBooksCountTextView = view.findViewById(R.id.saved_books_count);
+        savedBooksCountTextView = view.findViewById(R.id.profile_saved_books_count);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
 

@@ -33,7 +33,7 @@ public class WelcomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button b = view.findViewById(R.id.buttonEmailAndPassword);
+        Button b = view.findViewById(R.id.email_button);
 
         b.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_loginFragment);

@@ -13,6 +13,7 @@
     <string name="book_categories">Categories</string>
     <string name="book_description">Description</string>
     <string name="save_book">Save book</string>
+    <string name="remove_book">Remove book</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forgotten_password">Did you forget your password?</string>
@@ -25,5 +26,14 @@
     <string name="continue_with_google">Continue with Google</string>
     <string name="or">or</string>
     <string name="use_email_and_password">Use email and password</string>
-
+    <string name="profile_icon">Profile icon</string>
+    <string name="logging_in">Logging in…</string>
+    <string name="creating_account">Creating account…</string>
+    <string name="saved_books">%d saved books</string>
+    <string name="library_is_empty">library is empty</string>
+    <string name="book_publisher_year">%s • %s</string>
+    <string name="book_removed">Book removed from library</string>
+    <string name="book_saved">Book saved into library</string>
+    <string name="ratings">%d ratings</string>
+    <string name="pages">%d pages</string>
 </resources>

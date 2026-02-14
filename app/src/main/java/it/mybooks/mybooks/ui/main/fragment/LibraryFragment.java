@@ -75,9 +75,9 @@ public class LibraryFragment extends Fragment {
 
     private void updateSavedBooksCount(int count) {
         if (count == 0) {
-            savedBooksCountTextView.setText("library is empty");
+            savedBooksCountTextView.setText(R.string.library_is_empty);
         } else {
-            savedBooksCountTextView.setText(count + " saved books");
+            savedBooksCountTextView.setText(getString(R.string.saved_books, count));
         }
     }
 
@@ -92,16 +92,14 @@ public class LibraryFragment extends Fragment {
             NavHostFragment.findNavController(LibraryFragment.this).navigate(action);
         });
 
-        bookAdapter.setOnBookLongClickListener(book -> {
-            new AlertDialog.Builder(requireContext())
-                    .setTitle("Remove book")
-                    .setMessage("Do you want to remove \"" + book.getTitle() + "\" from your saved books?")
-                    .setPositiveButton("Remove", (dialog, which) ->
-                            bookViewModel.deleteBook(book)
-                    )
-                    .setNegativeButton("Cancel", null)
-                    .show();
-        });
+        bookAdapter.setOnBookLongClickListener(book -> new AlertDialog.Builder(requireContext())
+                .setTitle("Remove book")
+                .setMessage("Do you want to remove \"" + book.getTitle() + "\" from your saved books?")
+                .setPositiveButton("Remove", (dialog, which) ->
+                        bookViewModel.deleteBook(book)
+                )
+                .setNegativeButton("Cancel", null)
+                .show());
 
     }
 }

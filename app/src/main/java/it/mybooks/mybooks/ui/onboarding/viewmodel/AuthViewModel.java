@@ -68,14 +68,14 @@ public class AuthViewModel extends AndroidViewModel {
                 request,
                 null,
                 ContextCompat.getMainExecutor(activity),
-                new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
+                new CredentialManagerCallback<>() {
                     @Override
                     public void onResult(GetCredentialResponse result) {
                         handleSignInResult(result);
                     }
 
                     @Override
-                    public void onError(GetCredentialException e) {
+                    public void onError(@NonNull GetCredentialException e) {
                         isLoading.setValue(false);
                         errorMessage.setValue("Google Sign In failed: " + e.getMessage());
                     }
@@ -121,9 +121,9 @@ public class AuthViewModel extends AndroidViewModel {
         // 4. Parse Token
         Credential credential = result.getCredential();
         if (credential instanceof CustomCredential) {
-            String type = ((CustomCredential) credential).getType();
+            String type = credential.getType();
             if (GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL.equals(type)) {
-                GoogleIdTokenCredential googleId = GoogleIdTokenCredential.createFrom(((CustomCredential) credential).getData());
+                GoogleIdTokenCredential googleId = GoogleIdTokenCredential.createFrom(credential.getData());
 
                 // 5. Send to Repository
                 repository.loginWithGoogleIdToken(googleId.getIdToken(), new UserRepository.OnLoginListener() {

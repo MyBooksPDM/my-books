@@ -19,6 +19,7 @@
             android:id="@+id/book_thumbnail"
             android:layout_width="80dp"
             android:layout_height="120dp"
+            android:contentDescription="@string/book_cover_image"
             android:scaleType="centerCrop"
             android:background="?attr/colorSurfaceVariant"
             tools:src="@tools:sample/backgrounds/scenic" />

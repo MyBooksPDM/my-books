@@ -70,9 +70,9 @@ public class RegisterFragment extends Fragment {
                 buttonRegisterToLogin.setEnabled(!isLoading);
 
                 if (isLoading) {
-                    registerButton.setText("Creating account...");
+                    registerButton.setText(R.string.creating_account);
                 } else {
-                    registerButton.setText("Create an account");
+                    registerButton.setText(R.string.create_an_account);
                 }
             }
         });

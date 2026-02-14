@@ -40,27 +40,6 @@ public class RetrofitClient {
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor);
 
-        // Add API key interceptor if key is provided
-        if (API_KEY != null && !API_KEY.isEmpty()) {
-            clientBuilder.addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Request original = chain.request();
-                    HttpUrl originalHttpUrl = original.url();
-
-                    HttpUrl url = originalHttpUrl.newBuilder()
-                            .addQueryParameter("key", API_KEY)
-                            .build();
-
-                    Request.Builder requestBuilder = original.newBuilder()
-                            .url(url);
-
-                    Request request = requestBuilder.build();
-                    return chain.proceed(request);
-                }
-            });
-        }
-
         OkHttpClient okHttpClient = clientBuilder.build();
 
         // Create Retrofit instance
@@ -93,14 +72,5 @@ public class RetrofitClient {
      */
     public BookApiService getGoogleBooksService() {
         return googleBooksService;
-    }
-
-    /**
-     * Get the Retrofit instance (for advanced usage)
-     *
-     * @return Retrofit instance
-     */
-    public Retrofit getRetrofit() {
-        return retrofit;
     }
 }

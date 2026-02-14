@@ -5,16 +5,11 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import it.mybooks.mybooks.data.model.Book;
 import it.mybooks.mybooks.data.repository.BookRepository;
-import it.mybooks.mybooks.utils.SampleBookData;
 
 public class BookViewModel extends AndroidViewModel {
     private final BookRepository repository;

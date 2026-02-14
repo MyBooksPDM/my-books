@@ -82,12 +82,12 @@ public class BookDetailFragment extends Fragment {
                 // Delete the book from database
                 bookViewModel.deleteBook(currentBook);
                 isBookSaved = false;
-                Toast.makeText(getContext(), "Libro rimosso dalla libreria", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.book_removed, Toast.LENGTH_SHORT).show();
             } else {
                 // Save the book to database
                 bookViewModel.saveBook(currentBook);
                 isBookSaved = true;
-                Toast.makeText(getContext(), "Libro salvato in libreria", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.book_saved, Toast.LENGTH_SHORT).show();
             }
             updateFabState();
         });
@@ -128,12 +128,12 @@ public class BookDetailFragment extends Fragment {
         bookAuthor.setText(book.getAuthorsAsString());
 
         // Set publisher and year
-        bookPublisherYear.setText(book.getPublisher() + " - " + book.getPublicationYear());
+        bookPublisherYear.setText(getString(R.string.book_publisher_year, book.getPublisher(), book.getPublicationYear()));
 
         // Set rating (show only if rating exists)
         if (book.getAverageRating() > 0) {
             bookRating.setText(String.format("%.1f/5", book.getAverageRating()));
-            bookRatingsCount.setText("(" + book.getRatingsCount() + " ratings)");
+            bookRatingsCount.setText(getString(R.string.ratings, book.getRatingsCount()));
             ratingSection.setVisibility(View.VISIBLE);
         } else {
             ratingSection.setVisibility(View.GONE);
@@ -149,7 +149,7 @@ public class BookDetailFragment extends Fragment {
 
         // Set pages (show only if page count exists)
         if (book.getPageCount() > 0) {
-            bookPages.setText(book.getPageCount() + " pages");
+            bookPages.setText(getString(R.string.pages, book.getPageCount()));
             pagesSection.setVisibility(View.VISIBLE);
         } else {
             pagesSection.setVisibility(View.GONE);
@@ -204,10 +204,10 @@ public class BookDetailFragment extends Fragment {
     private void updateFabState() {
         if (isBookSaved) {
             fabSaveBook.setIconResource(R.drawable.round_remove_24);
-            fabSaveBook.setText("Remove from library");
+            fabSaveBook.setText(R.string.save_book);
         } else {
             fabSaveBook.setIconResource(R.drawable.round_add_24);
-            fabSaveBook.setText("Save to library");
+            fabSaveBook.setText(R.string.remove_book);
         }
     }
 }

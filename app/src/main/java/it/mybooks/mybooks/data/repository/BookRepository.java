@@ -3,6 +3,7 @@ package it.mybooks.mybooks.data.repository;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -57,7 +58,7 @@ public class BookRepository {
 
         apiService.searchBooks(query).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<BookApiResponse> call, Response<BookApiResponse> response) {
+            public void onResponse(@NonNull Call<BookApiResponse> call, @NonNull Response<BookApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     BookApiResponse apiResponse = response.body();
                     List<Book> books = apiResponse.getBooks();
@@ -81,7 +82,7 @@ public class BookRepository {
             }
 
             @Override
-            public void onFailure(Call<BookApiResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<BookApiResponse> call, @NonNull Throwable t) {
                 Log.e(TAG, "API call failed", t);
                 searchError.setValue("Errore di connessione: " + t.getMessage());
                 searchResults.setValue(new ArrayList<>());

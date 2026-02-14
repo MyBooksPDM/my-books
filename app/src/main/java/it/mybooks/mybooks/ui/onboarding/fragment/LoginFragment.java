@@ -51,9 +51,7 @@ public class LoginFragment extends Fragment {
         emailInput = view.findViewById(R.id.login_email);
         passwordInput = view.findViewById(R.id.login_password);
 
-        loginButton.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_profileFragment);
-        });
+        loginButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_profileFragment));
 
         emailEditText = (TextInputEditText) emailInput.getEditText();
         passwordEditText = (TextInputEditText) passwordInput.getEditText();
@@ -69,9 +67,9 @@ public class LoginFragment extends Fragment {
                 switchToRegisterButton.setEnabled(!isLoading);
 
                 if (isLoading) {
-                    loginButton.setText("Logging in...");
+                    loginButton.setText(R.string.logging_in);
                 } else {
-                    loginButton.setText("Login");
+                    loginButton.setText(R.string.login);
                 }
             }
         });

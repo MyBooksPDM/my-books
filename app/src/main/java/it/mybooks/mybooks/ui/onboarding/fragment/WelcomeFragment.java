@@ -35,9 +35,7 @@ public class WelcomeFragment extends Fragment {
 
         Button googleLoginButton = view.findViewById(R.id.google_button);
 
-        googleLoginButton.setOnClickListener(v -> {
-            authViewModel.signInWithGoogle(getActivity());
-        });
+        googleLoginButton.setOnClickListener(v -> authViewModel.signInWithGoogle(getActivity()));
 
 //        authViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
 //            progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
@@ -52,8 +50,6 @@ public class WelcomeFragment extends Fragment {
 
         Button b = view.findViewById(R.id.email_button);
 
-        b.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_loginFragment);
-        });
+        b.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_loginFragment));
     }
 }

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:checkable="true"
             android:text="Continue with Google"
-            app:icon="@drawable/round_mail_outline_24" />
+            app:icon="@drawable/big_g" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,6 +52,6 @@
             android:layout_height="wrap_content"
             android:checkable="true"
             android:text="Use email and password"
-            app:icon="@drawable/round_mail_outline_24" />
+            app:icon="@drawable/round_mail_24" />
     </LinearLayout>
 </FrameLayout>

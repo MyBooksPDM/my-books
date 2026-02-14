@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/profileFragment">
+    app:startDestination="@id/libraryFragment">
 
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="it.mybooks.mybooks.ui.onboarding.fragment.WelcomeFragment"
-        android:label="fragment_welcome"
+        android:label="Welcome"
         tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_loginFragment"
@@ -17,43 +17,43 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="it.mybooks.mybooks.ui.onboarding.fragment.LoginFragment"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/libraryFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="it.mybooks.mybooks.ui.onboarding.fragment.RegisterFragment"
-        android:label="fragment_register"
+        android:label="Register"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_registerFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/libraryFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookDetailFragment"
         android:name="it.mybooks.mybooks.ui.main.fragment.BookDetailFragment"
         android:label="Detail"
-        tools:layout="@layout/fragment_book_detail" >
+        tools:layout="@layout/fragment_book_detail">
         <argument
             android:name="selectedBook"
             app:argType="it.mybooks.mybooks.data.model.Book" />
     </fragment>
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="it.mybooks.mybooks.ui.main.fragment.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile">
+        android:id="@+id/libraryFragment"
+        android:name="it.mybooks.mybooks.ui.main.fragment.LibraryFragment"
+        android:label="Library"
+        tools:layout="@layout/fragment_library">
         <action
-            android:id="@+id/action_profileFragment_to_bookDetailFragment"
+            android:id="@+id/action_libraryFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
         <action
             android:id="@+id/action_profileFragment_to_searchFragment"
@@ -69,6 +69,6 @@
             app:destination="@id/bookDetailFragment" />
         <action
             android:id="@+id/action_searchFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/libraryFragment" />
     </fragment>
 </navigation>

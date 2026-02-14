@@ -22,9 +22,9 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 import it.mybooks.mybooks.data.repository.UserRepository;
 
 public class AuthViewModel extends AndroidViewModel {
-    private UserRepository repository;
-    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
-    private MutableLiveData<String> errorMessage = new MutableLiveData<>();
+    private final UserRepository repository;
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+    private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
     public AuthViewModel(@NonNull Application application) {
         super(application);

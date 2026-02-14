@@ -14,8 +14,8 @@ public class UserRepository {
 
     private static final String TAG = UserRepository.class.getName();
     private static UserRepository instance;
-    private FirebaseAuth firebaseAuth;
-    private MutableLiveData<FirebaseUser> userLiveData;
+    private final FirebaseAuth firebaseAuth;
+    private final MutableLiveData<FirebaseUser> userLiveData;
 
     public static UserRepository getInstance() {
         if (instance == null) {

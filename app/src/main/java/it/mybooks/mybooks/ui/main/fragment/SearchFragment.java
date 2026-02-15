@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import it.mybooks.mybooks.R;
 import it.mybooks.mybooks.ui.main.adapter.BookAdapter;
@@ -29,6 +30,7 @@ public class SearchFragment extends Fragment {
     private BookAdapter bookAdapter;
     private RecyclerView recyclerView;
     private TextInputEditText searchBar;
+    private TextInputLayout searchInputLayout;
     private ProgressBar progressBar;
 
     @Override
@@ -43,12 +45,14 @@ public class SearchFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.results_recyclerview);
         searchBar = view.findViewById(R.id.search_edit_text);
+        searchInputLayout = view.findViewById(R.id.search_input_layout);
         progressBar = view.findViewById(R.id.search_progress_bar);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
 
         setupRecyclerView();
         setupSearchInput();
+        setupClearIcon();
 
         observeViewModel();
     }
@@ -87,6 +91,14 @@ public class SearchFragment extends Fragment {
                     return true;
                 }
                 return false;
+            });
+        }
+    }
+
+    private void setupClearIcon() {
+        if (searchInputLayout != null) {
+            searchInputLayout.setEndIconOnClickListener(v -> {
+                searchBar.setText("");
             });
         }
     }

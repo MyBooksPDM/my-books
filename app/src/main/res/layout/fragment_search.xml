@@ -12,10 +12,11 @@
         style="@style/Widget.Material3.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:background="?attr/colorSurfaceContainer"
-        app:endIconDrawable="@drawable/round_search_24"
-        app:endIconMode="custom"
+        app:startIconDrawable="@drawable/round_search_24"
+        app:endIconDrawable="@drawable/round_clear_24"
+        app:endIconMode="clear_text"
         app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText

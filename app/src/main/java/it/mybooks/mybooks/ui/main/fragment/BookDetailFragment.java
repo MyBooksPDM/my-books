@@ -204,10 +204,10 @@ public class BookDetailFragment extends Fragment {
     private void updateFabState() {
         if (isBookSaved) {
             fabSaveBook.setIconResource(R.drawable.round_remove_24);
-            fabSaveBook.setText(R.string.save_book);
+            fabSaveBook.setText(R.string.remove_book);
         } else {
             fabSaveBook.setIconResource(R.drawable.round_add_24);
-            fabSaveBook.setText(R.string.remove_book);
+            fabSaveBook.setText(R.string.save_book);
         }
     }
 }

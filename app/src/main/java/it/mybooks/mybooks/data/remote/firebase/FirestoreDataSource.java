@@ -72,35 +72,40 @@ public class FirestoreDataSource {
                     callback.onSuccess();
                 })
                 .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error deleting book", e);
+                    Log.e(TAG,"Error deleting book", e);
                     callback.onError(e.getMessage() != null ? e.getMessage() : "Unknown error");
                 });
     }
 
+
     /**
      * Get all saved books for the current user
      */
-    public LiveData<List<Book>> getSavedBooks() {
-        MutableLiveData<List<Book>> savedBooks = new MutableLiveData<>();
+    public void getSavedBooks(FirestoreGetBooksCallback callback) {
         CollectionReference collection = getSavedBooksCollection();
 
-        if (collection != null) {
-            collection.orderBy("savedTimestamp", Query.Direction.DESCENDING)
-                    .addSnapshotListener((value, error) -> {
-                        if (error != null) {
-                            Log.e(TAG, "Listen failed.", error);
-                            return;
-                        }
-
-                        if (value != null) {
-                            List<Book> books = value.toObjects(Book.class);
-                            savedBooks.setValue(books);
-                        }
-                    });
+        if (collection == null) {
+            callback.onError("Utente non autenticato");
+            return;
         }
 
-        return savedBooks;
+        collection.orderBy("savedTimestamp", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Book> books = queryDocumentSnapshots.toObjects(Book.class);
+                    callback.onSuccess(books);
+                })
+                .addOnFailureListener(e -> {
+                    callback.onError(e.getMessage() != null ? e.getMessage() : "Errore remoto");
+                });
     }
+
+
+    public interface FirestoreGetBooksCallback {
+        void onSuccess(List<Book> books);
+        void onError(String message);
+    }
+
 
     public interface FirestoreChangeCallback {
         void onSuccess();

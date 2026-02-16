@@ -107,17 +107,27 @@ public class BookRepository {
     }
 
     public LiveData<List<Book>> getSavedBooks() {
-        //get savedbooks from firestore and update local db
-        firestoreDataSource.getSavedBooks().observeForever(books -> {
-            if (books != null) {
-                AppExecutors.getInstance().diskIO().execute(() -> {
-                    bookDao.insertAll(books);
-                });
-            }
-        });
-
         return bookDao.getAllBooks();
     }
+
+
+    public void refreshSavedBooks(FirestoreDataSource.FirestoreGetBooksCallback listener) {
+
+        firestoreDataSource.getSavedBooks(new FirestoreDataSource.FirestoreGetBooksCallback() {
+
+            @Override
+            public void onSuccess(List<Book> remoteBooks) {
+                syncBooksWithRoom(remoteBooks);
+                listener.onSuccess(remoteBooks);
+            }
+
+            @Override
+            public void onError(String message) {
+                listener.onError(message);
+            }
+        });
+    }
+
 
     public LiveData<Book> getBookById(String id) {
         return bookDao.getBookById(id);
@@ -155,6 +165,7 @@ public class BookRepository {
 
     public void syncBooksWithRoom(List<Book> remoteBooks) {
         AppExecutors.getInstance().diskIO().execute(() -> {
+            bookDao.clearAll();
             bookDao.insertAll(remoteBooks);
         });
     }

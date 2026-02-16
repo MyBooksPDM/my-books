@@ -5,10 +5,12 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
 import it.mybooks.mybooks.data.model.Book;
+import it.mybooks.mybooks.data.remote.firebase.FirestoreDataSource;
 import it.mybooks.mybooks.data.repository.BookRepository;
 
 public class BookViewModel extends AndroidViewModel {
@@ -18,12 +20,32 @@ public class BookViewModel extends AndroidViewModel {
     private final LiveData<List<Book>> searchResults;
     private String currentQuery;
 
+    private final MutableLiveData<String> syncError = new MutableLiveData<>();
+
+    public LiveData<String> getSyncError() {
+        return syncError;
+    }
+
+
     public BookViewModel(@NonNull Application application) {
         super(application);
         repository = BookRepository.getInstance(application);
         savedBooks = repository.getSavedBooks();
         searchResults = repository.getSearchResults();
         currentQuery = "";
+        repository.refreshSavedBooks(new FirestoreDataSource.FirestoreGetBooksCallback() {
+
+            @Override
+            public void onSuccess(List<Book> books) {
+                // opzionale: log
+            }
+
+            @Override
+            public void onError(String message) {
+                syncError.postValue(message);
+            }
+        });
+
     }
 
     public String getCurrentQuery() {

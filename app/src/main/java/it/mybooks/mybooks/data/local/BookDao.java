@@ -27,4 +27,7 @@ public interface BookDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Book> books);
+
+    @Query("DELETE FROM books")
+    void clearAll();
 }

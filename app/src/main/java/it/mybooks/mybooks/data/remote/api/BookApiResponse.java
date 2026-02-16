@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.data.remote;
+package it.mybooks.mybooks.data.remote.api;
 
 import com.google.gson.annotations.SerializedName;
 

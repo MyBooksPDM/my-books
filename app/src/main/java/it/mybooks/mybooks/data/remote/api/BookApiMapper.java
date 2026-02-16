@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.data.remote;
+package it.mybooks.mybooks.data.remote.api;
 
 import java.util.ArrayList;
 import java.util.List;

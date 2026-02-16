@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.data.remote;
+package it.mybooks.mybooks.data.remote.api;
 
 import it.mybooks.mybooks.data.model.BookItem;
 import retrofit2.Call;

@@ -5,11 +5,13 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 
 import java.util.List;
 
 import it.mybooks.mybooks.data.model.Book;
 import it.mybooks.mybooks.data.repository.BookRepository;
+import it.mybooks.mybooks.data.remote.firebase.FirestoreDataSource;
 
 public class BookViewModel extends AndroidViewModel {
     private final BookRepository repository;

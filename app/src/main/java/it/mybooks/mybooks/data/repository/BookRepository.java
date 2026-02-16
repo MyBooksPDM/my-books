@@ -14,10 +14,11 @@ import it.mybooks.mybooks.data.local.AppDatabase;
 import it.mybooks.mybooks.data.local.BookDao;
 
 import it.mybooks.mybooks.data.model.Book;
+import it.mybooks.mybooks.data.remote.firebase.FirestoreDataSource;
 import it.mybooks.mybooks.utils.AppExecutors;
-import it.mybooks.mybooks.data.remote.BookApiResponse;
-import it.mybooks.mybooks.data.remote.BookApiService;
-import it.mybooks.mybooks.data.remote.RetrofitClient;
+import it.mybooks.mybooks.data.remote.api.BookApiResponse;
+import it.mybooks.mybooks.data.remote.api.BookApiService;
+import it.mybooks.mybooks.data.remote.api.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,8 +28,8 @@ public class BookRepository {
     private static final String TAG = BookRepository.class.getName();
 
     private final BookDao bookDao;
+    private final FirestoreDataSource firestoreDataSource;
     private final BookApiService apiService;
-
     private final MutableLiveData<List<Book>> searchResults = new MutableLiveData<>();
     private final MutableLiveData<String> searchError = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
@@ -37,6 +38,7 @@ public class BookRepository {
     public BookRepository(Application application) {
         AppDatabase db = AppDatabase.getInstance(application);
         this.bookDao = db.bookDao();
+        this.firestoreDataSource = new FirestoreDataSource();
         this.apiService = RetrofitClient.getInstance().getGoogleBooksService();
     }
 
@@ -100,10 +102,13 @@ public class BookRepository {
     }
 
     public void saveBook(Book book) {
+        firestoreDataSource.saveBook(book);
         AppExecutors.getInstance().diskIO().execute(() -> bookDao.insert(book));
+        book.setSavedTimestamp(System.currentTimeMillis());
     }
 
     public void deleteBook(Book book) {
+        firestoreDataSource.deleteBook(book.getGid());
         AppExecutors.getInstance().diskIO().execute(() -> bookDao.delete(book));
     }
 }

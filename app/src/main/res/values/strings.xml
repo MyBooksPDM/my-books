@@ -30,7 +30,8 @@
     <string name="logging_in">Logging in…</string>
     <string name="creating_account">Creating account…</string>
     <string name="saved_books">%d saved books</string>
-    <string name="library_is_empty">library is empty</string>
+    <string name="library_is_empty">Library is empty</string>
+    <string name="search_and_add_books">Search and add books to see them here</string>
     <string name="book_publisher_year">%s • %s</string>
     <string name="book_removed">Book removed from library</string>
     <string name="book_saved">Book saved into library</string>

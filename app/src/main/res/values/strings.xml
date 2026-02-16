@@ -36,4 +36,6 @@
     <string name="book_saved">Book saved into library</string>
     <string name="ratings">%d ratings</string>
     <string name="pages">%d pages</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -41,28 +41,40 @@ public class FirestoreDataSource {
     /**
      * Save a book to the user's Firestore collection
      */
-    public void saveBook(Book book) {
+    public void saveBook(Book book, FirestoreChangeCallback callback) {
         CollectionReference collection = getSavedBooksCollection();
         if (collection == null) return;
 
 
         collection.document(book.getGid())
                 .set(book)
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "Book saved successfully: " + book.getTitle()))
-                .addOnFailureListener(e -> Log.e(TAG, "Error saving book", e));
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Book saved successfully: " + book.getTitle());
+                    callback.onSuccess();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error saving book", e);
+                    callback.onError(e.getMessage() != null ? e.getMessage() : "Unknown error");
+                });
     }
 
     /**
      * Remove a book from the user's Firestore collection
      */
-    public void deleteBook(String bookGid) {
+    public void deleteBook(String bookGid, FirestoreChangeCallback callback) {
         CollectionReference collection = getSavedBooksCollection();
         if (collection == null) return;
 
         collection.document(bookGid)
                 .delete()
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "Book deleted successfully"))
-                .addOnFailureListener(e -> Log.e(TAG, "Error deleting book", e));
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Book deleted successfully: " + bookGid);
+                    callback.onSuccess();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error deleting book", e);
+                    callback.onError(e.getMessage() != null ? e.getMessage() : "Unknown error");
+                });
     }
 
     /**
@@ -88,5 +100,11 @@ public class FirestoreDataSource {
         }
 
         return savedBooks;
+    }
+
+    public interface FirestoreChangeCallback {
+        void onSuccess();
+
+        void onError(String message);
     }
 }

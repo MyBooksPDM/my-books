@@ -124,19 +124,44 @@ public class BookRepository {
     }
 
     public void saveBook(Book book) {
-        firestoreDataSource.saveBook(book);
-        AppExecutors.getInstance().diskIO().execute(() -> bookDao.insert(book));
         book.setSavedTimestamp(System.currentTimeMillis());
+
+        firestoreDataSource.saveBook(book, new FirestoreDataSource.FirestoreChangeCallback() {
+            @Override
+            public void onSuccess() {
+                AppExecutors.getInstance().diskIO().execute(() -> bookDao.insert(book));
+            }
+
+            @Override
+            public void onError(String message) {
+//                listener.onError(message);
+            }
+        });
     }
 
     public void deleteBook(Book book) {
-        firestoreDataSource.deleteBook(book.getGid());
-        AppExecutors.getInstance().diskIO().execute(() -> bookDao.delete(book));
+        firestoreDataSource.deleteBook(book.getGid(), new FirestoreDataSource.FirestoreChangeCallback() {
+            @Override
+            public void onSuccess() {
+                AppExecutors.getInstance().diskIO().execute(() -> bookDao.delete(book));
+            }
+
+            @Override
+            public void onError(String message) {
+//                listener.onError(message);
+            }
+        });
     }
 
     public void syncBooksWithRoom(List<Book> remoteBooks) {
         AppExecutors.getInstance().diskIO().execute(() -> {
             bookDao.insertAll(remoteBooks);
         });
+    }
+
+    public interface OnFirestoreChangeListener {
+        void onSuccess();
+
+        void onError(String message);
     }
 }

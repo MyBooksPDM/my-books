@@ -94,6 +94,15 @@ public class BookRepository {
     }
 
     public LiveData<List<Book>> getSavedBooks() {
+        //get savedbooks from firestore and update local db
+        firestoreDataSource.getSavedBooks().observeForever(books -> {
+            if (books != null) {
+                AppExecutors.getInstance().diskIO().execute(() -> {
+                    bookDao.insertAll(books);
+                });
+            }
+        });
+
         return bookDao.getAllBooks();
     }
 

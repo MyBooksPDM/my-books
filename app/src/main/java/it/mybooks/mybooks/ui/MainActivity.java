@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
             appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.welcomeFragment,
                     R.id.libraryFragment,
-                    R.id.searchFragment
+                    R.id.searchFragment,
+                    R.id.profileFragment
             ).build();
 
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {

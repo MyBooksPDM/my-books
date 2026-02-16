@@ -60,6 +60,10 @@
             app:destination="@id/searchFragment" />
     </fragment>
     <fragment
+        android:id="@+id/profileFragment"
+        android:name="it.mybooks.mybooks.ui.main.fragment.ProfileFragment"
+        android:label="Profile" />
+    <fragment
         android:id="@+id/searchFragment"
         android:name="it.mybooks.mybooks.ui.main.fragment.SearchFragment"
         android:label="Search"

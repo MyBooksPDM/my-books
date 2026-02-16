@@ -1,4 +1,4 @@
-package it.mybooks.mybooks.data.repository;
+package it.mybooks.mybooks.data.remote.firebase;
 
 import android.util.Log;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 import it.mybooks.mybooks.data.model.Book;
 
-public class FirestoreRepository {
+public class FirestoreDataSource {
     private static final String TAG = "FirestoreRepository";
     private static final String USERS_COLLECTION = "users";
     private static final String BOOKS_COLLECTION = "saved_books";
@@ -23,7 +23,7 @@ public class FirestoreRepository {
     private final FirebaseFirestore db;
     private final FirebaseAuth auth;
 
-    public FirestoreRepository() {
+    public FirestoreDataSource() {
         this.db = FirebaseFirestore.getInstance();
         this.auth = FirebaseAuth.getInstance();
     }

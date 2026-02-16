@@ -1,14 +1,9 @@
-package it.mybooks.mybooks.data.remote;
+package it.mybooks.mybooks.data.remote.api;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import it.mybooks.mybooks.BuildConfig;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

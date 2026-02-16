@@ -16,10 +16,8 @@ import it.mybooks.mybooks.utils.Converters;
 @Entity(tableName = "books")
 @TypeConverters(Converters.class)
 public class Book implements Parcelable {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "uid")
-    private long uid; // Unique identifier for Room database
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "gid")
     private String gid; // Unique identifier from Google Books API
     @ColumnInfo(name = "title")
@@ -79,7 +77,6 @@ public class Book implements Parcelable {
     }
 
     protected Book(Parcel in) {
-        uid = in.readLong();
         gid = in.readString();
         title = in.readString();
         subtitle = in.readString();
@@ -312,14 +309,6 @@ public class Book implements Parcelable {
                 '}';
     }
 
-    public long getUid() {
-        return uid;
-    }
-
-    public void setUid(long uid) {
-        this.uid = uid;
-    }
-
     public long getSavedTimestamp() {
         return savedTimestamp;
     }
@@ -335,7 +324,6 @@ public class Book implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeLong(uid);
         dest.writeString(gid);
         dest.writeString(title);
         dest.writeString(subtitle);

@@ -14,12 +14,10 @@ import com.google.firebase.firestore.Query;
 import java.util.List;
 
 import it.mybooks.mybooks.data.model.Book;
+import it.mybooks.mybooks.utils.Constants;
 
 public class FirestoreDataSource {
-    private static final String TAG = "FirestoreRepository";
-    private static final String USERS_COLLECTION = "users";
-    private static final String BOOKS_COLLECTION = "saved_books";
-
+    private static final String TAG = "FirestoreDataSource";
     private final FirebaseFirestore db;
     private final FirebaseAuth auth;
 
@@ -34,10 +32,10 @@ public class FirestoreDataSource {
     private CollectionReference getSavedBooksCollection() {
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) return null;
-        
-        return db.collection(USERS_COLLECTION)
+
+        return db.collection(Constants.FirestoreCollections.USERS_COLLECTION)
                 .document(user.getUid())
-                .collection(BOOKS_COLLECTION);
+                .collection(Constants.FirestoreCollections.BOOKS_COLLECTION);
     }
 
     /**
@@ -73,22 +71,22 @@ public class FirestoreDataSource {
     public LiveData<List<Book>> getSavedBooks() {
         MutableLiveData<List<Book>> savedBooks = new MutableLiveData<>();
         CollectionReference collection = getSavedBooksCollection();
-        
+
         if (collection != null) {
             collection.orderBy("savedTimestamp", Query.Direction.DESCENDING)
-                .addSnapshotListener((value, error) -> {
-                    if (error != null) {
-                        Log.e(TAG, "Listen failed.", error);
-                        return;
-                    }
+                    .addSnapshotListener((value, error) -> {
+                        if (error != null) {
+                            Log.e(TAG, "Listen failed.", error);
+                            return;
+                        }
 
-                    if (value != null) {
-                        List<Book> books = value.toObjects(Book.class);
-                        savedBooks.setValue(books);
-                    }
-                });
+                        if (value != null) {
+                            List<Book> books = value.toObjects(Book.class);
+                            savedBooks.setValue(books);
+                        }
+                    });
         }
-        
+
         return savedBooks;
     }
 }

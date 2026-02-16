@@ -20,8 +20,7 @@ public class BookViewModel extends AndroidViewModel {
 
     public BookViewModel(@NonNull Application application) {
         super(application);
-        repository = new BookRepository(application);
-
+        repository = BookRepository.getInstance(application);
         savedBooks = repository.getSavedBooks();
         searchResults = repository.getSearchResults();
         currentQuery = "";

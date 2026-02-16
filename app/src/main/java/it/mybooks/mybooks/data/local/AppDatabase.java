@@ -7,11 +7,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import it.mybooks.mybooks.data.model.Book;
+import it.mybooks.mybooks.utils.Constants;
 
-@Database(entities = {Book.class}, version = 2, exportSchema = false)
+@Database(entities = {Book.class}, version = Constants.Database.VERSION, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    private static final String DATABASE_NAME = "mybooks_database";
-
     public abstract BookDao bookDao();
 
     private static volatile AppDatabase INSTANCE;
@@ -23,7 +22,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(
                                     context.getApplicationContext(),
                                     AppDatabase.class,
-                                    DATABASE_NAME
+                                    Constants.Database.NAME
                             )
                             .fallbackToDestructiveMigration()
                             .build();

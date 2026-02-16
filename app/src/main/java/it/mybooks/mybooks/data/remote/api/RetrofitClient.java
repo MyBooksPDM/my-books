@@ -3,6 +3,7 @@ package it.mybooks.mybooks.data.remote.api;
 import java.util.concurrent.TimeUnit;
 
 import it.mybooks.mybooks.BuildConfig;
+import it.mybooks.mybooks.utils.Constants;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -12,11 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Retrofit client singleton for Google Books API
  */
 public class RetrofitClient {
-
-    private static final String BASE_URL = BuildConfig.GOOGLE_BOOKS_BASE_URL;
-
-    private static final String API_KEY = BuildConfig.GOOGLE_BOOKS_API_KEY;
-
     private static RetrofitClient instance;
     private final Retrofit retrofit;
     private final BookApiService googleBooksService;
@@ -39,7 +35,7 @@ public class RetrofitClient {
 
         // Create Retrofit instance
         retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constants.GoogleBooksApi.BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

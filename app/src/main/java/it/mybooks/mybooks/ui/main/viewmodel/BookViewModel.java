@@ -5,16 +5,15 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 
 import java.util.List;
 
 import it.mybooks.mybooks.data.model.Book;
 import it.mybooks.mybooks.data.repository.BookRepository;
-import it.mybooks.mybooks.data.remote.firebase.FirestoreDataSource;
 
 public class BookViewModel extends AndroidViewModel {
     private final BookRepository repository;
+
     private final LiveData<List<Book>> savedBooks;
     private final LiveData<List<Book>> searchResults;
     private String currentQuery;
@@ -22,6 +21,7 @@ public class BookViewModel extends AndroidViewModel {
     public BookViewModel(@NonNull Application application) {
         super(application);
         repository = new BookRepository(application);
+
         savedBooks = repository.getSavedBooks();
         searchResults = repository.getSearchResults();
         currentQuery = "";
@@ -44,6 +44,10 @@ public class BookViewModel extends AndroidViewModel {
         return repository.getIsLoading();
     }
 
+    public LiveData<String> getFirestoreError() {
+        return repository.getFirestoreError();
+    }
+
     public LiveData<List<Book>> getSavedBooks() {
         return savedBooks;
     }
@@ -53,10 +57,15 @@ public class BookViewModel extends AndroidViewModel {
     }
 
     public void saveBook(Book book) {
+        long timestamp = System.currentTimeMillis();
+        book.setSavedTimestamp(timestamp);
+
+        // Save locally (Room)
         repository.saveBook(book);
     }
 
     public void deleteBook(Book book) {
+        // Delete locally (Room)
         repository.deleteBook(book);
     }
 }

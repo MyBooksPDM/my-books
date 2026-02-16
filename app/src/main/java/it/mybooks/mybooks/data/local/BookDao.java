@@ -19,7 +19,7 @@ public interface BookDao {
     @Delete
     void delete(Book book);
 
-    @Query("SELECT * FROM books")
+    @Query("SELECT * FROM books ORDER BY saved_timestamp DESC")
     LiveData<List<Book>> getAllBooks();
 
     @Query("SELECT * FROM books WHERE gid = :bookId LIMIT 1")

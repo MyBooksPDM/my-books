@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import it.mybooks.mybooks.R;
 import it.mybooks.mybooks.ui.main.adapter.BookAdapter;
@@ -27,6 +29,7 @@ public class LibraryFragment extends Fragment {
     private RecyclerView recyclerView;
     private BookAdapter bookAdapter;
     private TextView savedBooksCountTextView;
+    private LinearLayout emptyStateLayout;
     private BookViewModel bookViewModel;
 
     @Override
@@ -41,13 +44,13 @@ public class LibraryFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.profile_recycler_view);
         savedBooksCountTextView = view.findViewById(R.id.profile_saved_books_count);
+        emptyStateLayout = view.findViewById(R.id.library_empty_state);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         View profileCard = view.findViewById(R.id.profile_card);
 
-        //logout on long click just for testing purposes, will be moved to settings in the future
         profileCard.setOnLongClickListener(v -> {
             new AlertDialog.Builder(requireContext())
                     .setTitle("Sign out")
@@ -60,11 +63,18 @@ public class LibraryFragment extends Fragment {
 
         setupRecyclerView();
 
-        // Observe books data from ViewModel
+        // Observe books data from ViewModel (Room as source of truth)
         bookViewModel.getSavedBooks().observe(getViewLifecycleOwner(), books -> {
             if (books != null) {
                 bookAdapter.setBooks(books);
-                updateSavedBooksCount(books.size());
+                updateUI(books.size());
+            }
+        });
+
+        // Observe Firestore errors
+        bookViewModel.getFirestoreError().observe(getViewLifecycleOwner(), error -> {
+            if (error != null) {
+                Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -73,11 +83,17 @@ public class LibraryFragment extends Fragment {
         authViewModel.signOut();
     }
 
-    private void updateSavedBooksCount(int count) {
+    private void updateUI(int count) {
+        // Update counter
+        savedBooksCountTextView.setText(getString(R.string.saved_books, count));
+        
+        // Toggle empty state visibility
         if (count == 0) {
-            savedBooksCountTextView.setText(R.string.library_is_empty);
+            emptyStateLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
         } else {
-            savedBooksCountTextView.setText(getString(R.string.saved_books, count));
+            emptyStateLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -100,6 +116,5 @@ public class LibraryFragment extends Fragment {
                 )
                 .setNegativeButton("Cancel", null)
                 .show());
-
     }
 }

@@ -7,13 +7,14 @@
     android:orientation="vertical"
     tools:context=".ui.main.fragment.LibraryFragment">
 
+    <!-- Library Header Card -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/profile_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
-        app:cardBackgroundColor="?attr/colorSecondaryContainer"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
         app:strokeWidth="0dp">
@@ -21,53 +22,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                app:cardBackgroundColor="?attr/colorPrimaryContainer"
-                app:cardCornerRadius="32dp"
-                app:cardElevation="0dp">
-
-                <ImageView
-                    android:id="@+id/profile_icon"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/profile_icon"
-                    android:padding="12dp"
-                    android:scaleType="center"
-                    android:src="@android:drawable/ic_menu_myplaces"
-                    app:tint="?attr/colorOnPrimaryContainer" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:text="@string/my_library"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorOnSurface" />
 
-                <TextView
-                    android:id="@+id/profile_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceTitleLarge"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textStyle="bold"
-                    tools:text="[Username]" />
-
-                <TextView
-                    android:id="@+id/profile_saved_books_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textAppearance="?attr/textAppearanceBodyLarge"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    tools:text="[saved books count] saved books" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/profile_saved_books_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="12 saved books" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

@@ -23,11 +23,13 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 import it.mybooks.mybooks.R;
 import it.mybooks.mybooks.data.model.Book;
+import it.mybooks.mybooks.ui.MainViewModel;
 import it.mybooks.mybooks.ui.main.viewmodel.BookViewModel;
 
 public class BookDetailFragment extends Fragment {
 
     private BookViewModel bookViewModel;
+    private MainViewModel mainViewModel;
     private Book currentBook;
     private boolean isBookSaved = false;
     private ImageView bookCoverImage;
@@ -61,6 +63,7 @@ public class BookDetailFragment extends Fragment {
 
         // Initialize ViewModel
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         initializeViews(view);
 
@@ -74,6 +77,12 @@ public class BookDetailFragment extends Fragment {
             checkIfBookIsSaved();
             setupFabListener();
         }
+
+        observeViewModel();
+    }
+
+    private void observeViewModel() {
+        mainViewModel.getIsConnected().observe(getViewLifecycleOwner(), this::updateFabEnabledState);
     }
 
     private void setupFabListener() {
@@ -209,5 +218,9 @@ public class BookDetailFragment extends Fragment {
             fabSaveBook.setIconResource(R.drawable.round_add_24);
             fabSaveBook.setText(R.string.save_book);
         }
+    }
+
+    private void updateFabEnabledState(boolean isConnected) {
+        fabSaveBook.setEnabled(isConnected);
     }
 }

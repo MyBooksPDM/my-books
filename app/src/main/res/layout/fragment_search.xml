@@ -14,10 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="?attr/colorSurfaceContainer"
-        app:startIconDrawable="@drawable/round_search_24"
         app:endIconDrawable="@drawable/round_clear_24"
         app:endIconMode="clear_text"
-        app:hintEnabled="false">
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/round_search_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_edit_text"
@@ -64,9 +64,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:alpha="0.5"
+                android:contentDescription="@string/search"
                 android:src="@drawable/round_search_24"
-                app:tint="?attr/colorOnSurfaceVariant"
-                android:contentDescription="@string/search" />
+                app:tint="?attr/colorOnSurfaceVariant" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,22 +85,21 @@
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/search_error_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="64dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:padding="32dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/search_error_icon"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginBottom="16dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/round_clear_24"
                 app:tint="?attr/colorError" />
 
@@ -108,10 +107,12 @@
                 android:id="@+id/search_error_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:paddingHorizontal="32dp"
                 android:textAlignment="center"
-                android:textAppearance="?attr/textAppearanceBodyLarge"
-                />
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

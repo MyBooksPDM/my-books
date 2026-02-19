@@ -55,4 +55,5 @@
     <string name="connection_error">"Connection error: "</string>
     <string name="no_results_found_for">"No results found for : "</string>
     <string name="api_error">"API error: "</string>
+    <string name="no_internet_connection">No internet connection</string>
 </resources>

@@ -37,8 +37,6 @@ public class SearchFragment extends Fragment {
     private TextInputLayout searchInputLayout;
     private ProgressBar progressBar;
     private LinearLayout emptyStateLayout;
-    private LinearLayout errorContainer;
-    private TextView errorText;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -55,8 +53,6 @@ public class SearchFragment extends Fragment {
         searchInputLayout = view.findViewById(R.id.search_input_layout);
         progressBar = view.findViewById(R.id.search_progress_bar);
         emptyStateLayout = view.findViewById(R.id.search_empty_state);
-        errorContainer = view.findViewById(R.id.search_error_container);
-        errorText = view.findViewById(R.id.search_error_text);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
@@ -110,63 +106,43 @@ public class SearchFragment extends Fragment {
         if (searchInputLayout != null) {
             searchInputLayout.setEndIconOnClickListener(v -> {
                 searchBar.setText("");
-                    bookViewModel.searchBooks("");
+                recyclerView.setVisibility(View.GONE);
+                emptyStateLayout.setVisibility(View.VISIBLE);
             });
         }
     }
 
     private void observeViewModel() {
         bookViewModel.getSearchResults().observe(getViewLifecycleOwner(), books -> {
-            if (books != null && !books.isEmpty()) {
+            if (books != null) {
                 bookAdapter.setBooks(books);
-                updateEmptyState(books.isEmpty(), bookViewModel.getSearchError().getValue());
+                updateEmptyState(books.isEmpty());
             }
         });
-
-        /* bookViewModel.getSearchError().observe(getViewLifecycleOwner(), error -> {
-            Boolean isConnected = mainViewModel.getIsConnected().getValue();
-            if (error != null && Boolean.TRUE.equals(isConnected)) {
-                errorText.setText(error);
-                errorContainer.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
-            } else {
-                errorContainer.setVisibility(View.GONE);
-            }
-        }); */
 
         bookViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading != null && isLoading) {
                 progressBar.setVisibility(View.VISIBLE);
-                if (emptyStateLayout != null) emptyStateLayout.setVisibility(View.GONE);
-                errorContainer.setVisibility(View.GONE);
+                emptyStateLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
             } else {
                 progressBar.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
             }
         });
+
 
         mainViewModel.getIsConnected().observe(getViewLifecycleOwner(), isConnected -> {
             searchInputLayout.setEnabled(isConnected);
-            if (!isConnected) {
-                errorContainer.setVisibility(View.GONE);
-            }
         });
     }
 
-    private void updateEmptyState(boolean isEmpty, String errorMessage){
+    private void updateEmptyState(boolean isEmpty) {
         if (isEmpty) {
-            if (errorMessage != null && !errorMessage.isEmpty()) {
-                errorText.setText(errorMessage);
-                errorContainer.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
-                if (emptyStateLayout != null) emptyStateLayout.setVisibility(View.GONE);
-            } else {
-                if (emptyStateLayout != null) emptyStateLayout.setVisibility(View.VISIBLE);
-                errorContainer.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.GONE);
-            }
+            emptyStateLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
         } else {
-            if (emptyStateLayout != null) emptyStateLayout.setVisibility(View.GONE);
-            errorContainer.setVisibility(View.GONE);
+            emptyStateLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
     }

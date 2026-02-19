@@ -33,16 +33,19 @@ public class ProfileViewModel extends AndroidViewModel {
     public LiveData<Boolean> deleteAccount() {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
-        getCurrentUser().observeForever(firebaseUser -> {
-            if (firebaseUser != null) {
-                firebaseUser.delete().addOnCompleteListener(task -> {
-                    result.setValue(task.isSuccessful());
-                    bookRepository.clearLocalBooks();
-                });
-            } else {
+        userRepository.deleteAccount(new UserRepository.OnDeleteAccountListener() {
+            @Override
+            public void onSuccess() {
+                result.setValue(true);
+                bookRepository.clearLocalBooks();
+            }
+
+            @Override
+            public void onError(String message) {
                 result.setValue(false);
             }
         });
+
         return result;
     }
 }

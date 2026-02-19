@@ -79,7 +79,7 @@ public class UserRepository {
         firebaseAuthDataSource.signOut();
     }
 
-    public void deleteAccount(OnLoginListener listener) {
+    public void deleteAccount(OnDeleteAccountListener listener) {
         firebaseAuthDataSource.deleteAccount(new FirebaseAuthDataSource.DeleteAccountCallback() {
             @Override
             public void onSuccess() {
@@ -93,6 +93,12 @@ public class UserRepository {
         });
     }
     public interface OnLoginListener {
+        void onSuccess();
+
+        void onError(String message);
+    }
+
+    public interface  OnDeleteAccountListener {
         void onSuccess();
 
         void onError(String message);

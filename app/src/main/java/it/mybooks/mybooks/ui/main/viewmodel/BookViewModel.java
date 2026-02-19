@@ -59,6 +59,10 @@ public class BookViewModel extends AndroidViewModel {
         return searchResults;
     }
 
+    public LiveData<String> getSearchError() {
+        return repository.getSearchError();
+    }
+
     public LiveData<Boolean> getIsLoading() {
         return repository.getIsLoading();
     }

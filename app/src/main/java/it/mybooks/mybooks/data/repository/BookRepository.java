@@ -31,6 +31,7 @@ public class BookRepository {
     private final BookDao bookDao;
     private final FirestoreDataSource firestoreDataSource;
     private final BookApiService apiService;
+    
     private final MutableLiveData<List<Book>> searchResults = new MutableLiveData<>();
     private final MutableLiveData<String> searchError = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
@@ -87,12 +88,12 @@ public class BookRepository {
                         searchError.setValue(null);
                     } else {
                         searchResults.setValue(new ArrayList<>());
-                        searchError.setValue(R.string.no_results_found_for + query);
+                        searchError.setValue("No results found for: " + query);
                     }
                 } else {
                     Log.e(TAG, "API Response error: " + response.code() + " - " + response.message());
                     searchResults.setValue(new ArrayList<>());
-                    searchError.setValue(R.string.api_error + response.code() + " - " + response.message());
+                    searchError.setValue("API error: " + response.code() + " - " + response.message());
                 }
                 isLoading.setValue(false);
             }
@@ -100,7 +101,7 @@ public class BookRepository {
             @Override
             public void onFailure(@NonNull Call<BookApiResponse> call, @NonNull Throwable t) {
                 Log.e(TAG, "API call failed", t);
-                searchError.setValue(R.string.connection_error + t.getMessage());
+                searchError.setValue("Connection error: " + t.getMessage());
                 searchResults.setValue(new ArrayList<>());
                 isLoading.setValue(false);
             }
@@ -145,6 +146,7 @@ public class BookRepository {
 
             @Override
             public void onError(String message) {
+                firestoreError.postValue(message);
             }
         });
     }
@@ -158,7 +160,7 @@ public class BookRepository {
 
             @Override
             public void onError(String message) {
-//                listener.onError(message);
+                firestoreError.postValue(message);
             }
         });
     }

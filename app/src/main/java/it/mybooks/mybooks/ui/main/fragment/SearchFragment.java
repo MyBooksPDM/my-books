@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,17 +23,20 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import it.mybooks.mybooks.R;
+import it.mybooks.mybooks.ui.MainViewModel;
 import it.mybooks.mybooks.ui.main.adapter.BookAdapter;
 import it.mybooks.mybooks.ui.main.viewmodel.BookViewModel;
 
 public class SearchFragment extends Fragment {
 
     private BookViewModel bookViewModel;
+    private MainViewModel mainViewModel;
     private BookAdapter bookAdapter;
     private RecyclerView recyclerView;
     private TextInputEditText searchBar;
     private TextInputLayout searchInputLayout;
     private ProgressBar progressBar;
+    private LinearLayout emptyStateLayout;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -47,8 +52,10 @@ public class SearchFragment extends Fragment {
         searchBar = view.findViewById(R.id.search_edit_text);
         searchInputLayout = view.findViewById(R.id.search_input_layout);
         progressBar = view.findViewById(R.id.search_progress_bar);
+        emptyStateLayout = view.findViewById(R.id.search_empty_state);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         setupRecyclerView();
         setupSearchInput();
@@ -99,6 +106,8 @@ public class SearchFragment extends Fragment {
         if (searchInputLayout != null) {
             searchInputLayout.setEndIconOnClickListener(v -> {
                 searchBar.setText("");
+                recyclerView.setVisibility(View.GONE);
+                emptyStateLayout.setVisibility(View.VISIBLE);
             });
         }
     }
@@ -107,15 +116,34 @@ public class SearchFragment extends Fragment {
         bookViewModel.getSearchResults().observe(getViewLifecycleOwner(), books -> {
             if (books != null) {
                 bookAdapter.setBooks(books);
+                updateEmptyState(books.isEmpty());
             }
         });
 
         bookViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading != null && isLoading) {
                 progressBar.setVisibility(View.VISIBLE);
+                emptyStateLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
             } else {
                 progressBar.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
             }
         });
+
+
+        mainViewModel.getIsConnected().observe(getViewLifecycleOwner(), isConnected -> {
+            searchInputLayout.setEnabled(isConnected);
+        });
+    }
+
+    private void updateEmptyState(boolean isEmpty) {
+        if (isEmpty) {
+            emptyStateLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            emptyStateLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 }

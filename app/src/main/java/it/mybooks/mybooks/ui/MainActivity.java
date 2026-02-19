@@ -3,6 +3,7 @@ package it.mybooks.mybooks.ui;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        mainViewModel.userSession.observe(this, user -> {
+        mainViewModel.getUserSession().observe(this, user -> {
             if (user != null) {
                 Log.d(TAG, "onCreate: user logged in: " + user.getUid());
                 // User is logged in!
@@ -87,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
                 navigateToFragment(R.id.welcomeFragment);
             }
         });
+
+        TextView offlineMessage = findViewById(R.id.offline_message);
+        mainViewModel.getIsConnected().observe(this, isConnected -> {
+            if (isConnected != null && !isConnected) {
+                offlineMessage.setVisibility(View.VISIBLE);
+            } else {
+                offlineMessage.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     private void navigateToFragment(int destinationId) {

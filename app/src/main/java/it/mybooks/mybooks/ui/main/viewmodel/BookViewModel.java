@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -18,13 +19,31 @@ public class BookViewModel extends AndroidViewModel {
     private final LiveData<List<Book>> searchResults;
     private String currentQuery;
 
+    private final MutableLiveData<String> syncError = new MutableLiveData<>();
+
+    public LiveData<String> getSyncError() {
+        return syncError;
+    }
+
+
     public BookViewModel(@NonNull Application application) {
         super(application);
-        repository = new BookRepository(application);
-
+        repository = BookRepository.getInstance(application);
         savedBooks = repository.getSavedBooks();
         searchResults = repository.getSearchResults();
         currentQuery = "";
+        repository.syncBooksFromRemote(new BookRepository.OnRepositoryActionListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(String message) {
+                syncError.postValue(message);
+            }
+        });
+
     }
 
     public String getCurrentQuery() {
@@ -40,6 +59,10 @@ public class BookViewModel extends AndroidViewModel {
         return searchResults;
     }
 
+    public LiveData<String> getSearchError() {
+        return repository.getSearchError();
+    }
+
     public LiveData<Boolean> getIsLoading() {
         return repository.getIsLoading();
     }
@@ -52,8 +75,8 @@ public class BookViewModel extends AndroidViewModel {
         return savedBooks;
     }
 
-    public LiveData<Book> getBookById(String id) {
-        return repository.getBookById(id);
+    public LiveData<Book> getSavedBookByGid(String gid) {
+        return repository.getSavedBookByGid(gid);
     }
 
     public void saveBook(Book book) {

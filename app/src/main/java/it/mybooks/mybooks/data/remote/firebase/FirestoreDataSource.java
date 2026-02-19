@@ -14,12 +14,10 @@ import com.google.firebase.firestore.Query;
 import java.util.List;
 
 import it.mybooks.mybooks.data.model.Book;
+import it.mybooks.mybooks.utils.Constants;
 
 public class FirestoreDataSource {
-    private static final String TAG = "FirestoreRepository";
-    private static final String USERS_COLLECTION = "users";
-    private static final String BOOKS_COLLECTION = "saved_books";
-
+    private static final String TAG = "FirestoreDataSource";
     private final FirebaseFirestore db;
     private final FirebaseAuth auth;
 
@@ -34,61 +32,84 @@ public class FirestoreDataSource {
     private CollectionReference getSavedBooksCollection() {
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) return null;
-        
-        return db.collection(USERS_COLLECTION)
+
+        return db.collection(Constants.FirestoreCollections.USERS_COLLECTION)
                 .document(user.getUid())
-                .collection(BOOKS_COLLECTION);
+                .collection(Constants.FirestoreCollections.BOOKS_COLLECTION);
     }
 
     /**
      * Save a book to the user's Firestore collection
      */
-    public void saveBook(Book book) {
+    public void saveBook(Book book, FirestoreChangeCallback callback) {
         CollectionReference collection = getSavedBooksCollection();
         if (collection == null) return;
 
 
         collection.document(book.getGid())
                 .set(book)
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "Book saved successfully: " + book.getTitle()))
-                .addOnFailureListener(e -> Log.e(TAG, "Error saving book", e));
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Book saved successfully: " + book.getTitle());
+                    callback.onSuccess();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error saving book", e);
+                    callback.onError(e.getMessage() != null ? e.getMessage() : "Unknown error");
+                });
     }
 
     /**
      * Remove a book from the user's Firestore collection
      */
-    public void deleteBook(String bookGid) {
+    public void deleteBook(String bookGid, FirestoreChangeCallback callback) {
         CollectionReference collection = getSavedBooksCollection();
         if (collection == null) return;
 
         collection.document(bookGid)
                 .delete()
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "Book deleted successfully"))
-                .addOnFailureListener(e -> Log.e(TAG, "Error deleting book", e));
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Book deleted successfully: " + bookGid);
+                    callback.onSuccess();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG,"Error deleting book", e);
+                    callback.onError(e.getMessage() != null ? e.getMessage() : "Unknown error");
+                });
     }
+
 
     /**
      * Get all saved books for the current user
      */
-    public LiveData<List<Book>> getSavedBooks() {
-        MutableLiveData<List<Book>> savedBooks = new MutableLiveData<>();
+    public void getSavedBooks(FirestoreGetBooksCallback callback) {
         CollectionReference collection = getSavedBooksCollection();
-        
-        if (collection != null) {
-            collection.orderBy("savedTimestamp", Query.Direction.DESCENDING)
-                .addSnapshotListener((value, error) -> {
-                    if (error != null) {
-                        Log.e(TAG, "Listen failed.", error);
-                        return;
-                    }
 
-                    if (value != null) {
-                        List<Book> books = value.toObjects(Book.class);
-                        savedBooks.setValue(books);
-                    }
-                });
+        if (collection == null) {
+            callback.onError("Utente non autenticato");
+            return;
         }
-        
-        return savedBooks;
+
+        collection.orderBy("savedTimestamp", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Book> books = queryDocumentSnapshots.toObjects(Book.class);
+                    callback.onSuccess(books);
+                })
+                .addOnFailureListener(e -> {
+                    callback.onError(e.getMessage() != null ? e.getMessage() : "Errore remoto");
+                });
+    }
+
+
+    public interface FirestoreGetBooksCallback {
+        void onSuccess(List<Book> books);
+        void onError(String message);
+    }
+
+
+    public interface FirestoreChangeCallback {
+        void onSuccess();
+
+        void onError(String message);
     }
 }

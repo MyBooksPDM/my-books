@@ -4,38 +4,29 @@ import android.app.Activity;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.credentials.Credential;
-import androidx.credentials.CredentialManager;
-import androidx.credentials.CredentialManagerCallback;
-import androidx.credentials.CustomCredential;
-import androidx.credentials.GetCredentialRequest;
-import androidx.credentials.GetCredentialResponse;
-import androidx.credentials.exceptions.GetCredentialException;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
-
-import it.mybooks.mybooks.BuildConfig;
+import it.mybooks.mybooks.data.repository.BookRepository;
 import it.mybooks.mybooks.data.repository.UserRepository;
 
 public class AuthViewModel extends AndroidViewModel {
 
-    private static final String SERVER_CLIENT_ID = BuildConfig.FIREBASE_SERVER_CLIENT_ID;
-    private final UserRepository repository;
+    private final UserRepository userRepository;
+    private final BookRepository bookRepository;
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
     public AuthViewModel(@NonNull Application application) {
         super(application);
-        repository = UserRepository.getInstance();
+        userRepository = UserRepository.getInstance();
+        bookRepository = BookRepository.getInstance(application);
     }
 
     public void signOut() {
-        repository.signOut();
+        bookRepository.clearLocalBooks();
+        userRepository.signOut();
     }
 
     public LiveData<Boolean> getIsLoading() {
@@ -48,48 +39,26 @@ public class AuthViewModel extends AndroidViewModel {
 
     public void signInWithGoogle(Activity activity) {
         isLoading.setValue(true);
-        CredentialManager credentialManager = CredentialManager.create(activity);
+        userRepository.signInWithGoogle(activity, new UserRepository.OnLoginListener() {
+            @Override
+            public void onSuccess() {
+                isLoading.setValue(false);
+            }
 
-        // 1. Build the Google Option
-        GetGoogleIdOption googleIdOption = new GetGoogleIdOption.Builder()
-                .setFilterByAuthorizedAccounts(false)
-                .setServerClientId(SERVER_CLIENT_ID)
-                .setAutoSelectEnabled(true)
-                .build();
-
-        // 2. Build Request
-        GetCredentialRequest request = new GetCredentialRequest.Builder()
-                .addCredentialOption(googleIdOption)
-                .build();
-
-        // 3. Launch UI
-        credentialManager.getCredentialAsync(
-                activity,
-                request,
-                null,
-                ContextCompat.getMainExecutor(activity),
-                new CredentialManagerCallback<>() {
-                    @Override
-                    public void onResult(GetCredentialResponse result) {
-                        handleSignInResult(result);
-                    }
-
-                    @Override
-                    public void onError(@NonNull GetCredentialException e) {
-                        isLoading.setValue(false);
-                        errorMessage.setValue("Google Sign In failed: " + e.getMessage());
-                    }
-                }
-        );
+            @Override
+            public void onError(String msg) {
+                isLoading.setValue(false);
+                errorMessage.setValue(msg);
+            }
+        });
     }
 
     public void signInWithEmail(String email, String password) {
         isLoading.setValue(true);
-        repository.loginWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
+        userRepository.signInWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
             @Override
             public void onSuccess() {
                 isLoading.setValue(false);
-                // Navigation is handled by MainActivity observing MainViewModel
             }
 
             @Override
@@ -102,11 +71,10 @@ public class AuthViewModel extends AndroidViewModel {
 
     public void signUpWithEmail(String email, String password) {
         isLoading.setValue(true);
-        repository.registerWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
+        userRepository.createUserWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
             @Override
             public void onSuccess() {
                 isLoading.setValue(false);
-                // Navigation is handled by MainActivity observing MainViewModel
             }
 
             @Override
@@ -115,32 +83,6 @@ public class AuthViewModel extends AndroidViewModel {
                 errorMessage.setValue(msg);
             }
         });
-    }
-
-    private void handleSignInResult(GetCredentialResponse result) {
-        // 4. Parse Token
-        Credential credential = result.getCredential();
-        if (credential instanceof CustomCredential) {
-            String type = credential.getType();
-            if (GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL.equals(type)) {
-                GoogleIdTokenCredential googleId = GoogleIdTokenCredential.createFrom(credential.getData());
-
-                // 5. Send to Repository
-                repository.loginWithGoogleIdToken(googleId.getIdToken(), new UserRepository.OnLoginListener() {
-                    @Override
-                    public void onSuccess() {
-                        isLoading.setValue(false);
-                        // Navigation is handled by MainActivity observing MainViewModel
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        isLoading.setValue(false);
-                        errorMessage.setValue(msg);
-                    }
-                });
-            }
-        }
     }
 
 }

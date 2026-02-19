@@ -23,8 +23,11 @@ public interface BookDao {
     LiveData<List<Book>> getAllBooks();
 
     @Query("SELECT * FROM books WHERE gid = :bookId LIMIT 1")
-    LiveData<Book> getBookById(String bookId);
+    LiveData<Book> getBookByGid(String bookId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Book> books);
+
+    @Query("DELETE FROM books")
+    void clearAll();
 }

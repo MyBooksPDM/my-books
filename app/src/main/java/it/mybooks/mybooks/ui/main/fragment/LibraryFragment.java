@@ -47,19 +47,6 @@ public class LibraryFragment extends Fragment {
         emptyStateLayout = view.findViewById(R.id.library_empty_state);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
-        AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-
-        View profileCard = view.findViewById(R.id.profile_card);
-
-        profileCard.setOnLongClickListener(v -> {
-            new AlertDialog.Builder(requireContext())
-                    .setTitle("Sign out")
-                    .setMessage("Do you want to sign out?")
-                    .setPositiveButton("Sign out", (dialog, which) -> signOut(authViewModel))
-                    .setNegativeButton("Cancel", null)
-                    .show();
-            return true;
-        });
 
         setupRecyclerView();
 
@@ -79,14 +66,10 @@ public class LibraryFragment extends Fragment {
         });
     }
 
-    private void signOut(AuthViewModel authViewModel) {
-        authViewModel.signOut();
-    }
-
     private void updateUI(int count) {
         // Update counter
         savedBooksCountTextView.setText(getString(R.string.saved_books, count));
-        
+
         // Toggle empty state visibility
         if (count == 0) {
             emptyStateLayout.setVisibility(View.VISIBLE);
@@ -107,14 +90,5 @@ public class LibraryFragment extends Fragment {
                     LibraryFragmentDirections.actionLibraryFragmentToBookDetailFragment(book);
             NavHostFragment.findNavController(LibraryFragment.this).navigate(action);
         });
-
-        bookAdapter.setOnBookLongClickListener(book -> new AlertDialog.Builder(requireContext())
-                .setTitle("Remove book")
-                .setMessage("Do you want to remove \"" + book.getTitle() + "\" from your saved books?")
-                .setPositiveButton("Remove", (dialog, which) ->
-                        bookViewModel.deleteBook(book)
-                )
-                .setNegativeButton("Cancel", null)
-                .show());
     }
 }

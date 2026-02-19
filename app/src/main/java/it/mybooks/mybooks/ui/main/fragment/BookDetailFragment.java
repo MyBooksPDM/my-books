@@ -103,7 +103,7 @@ public class BookDetailFragment extends Fragment {
     }
 
     private void checkIfBookIsSaved() {
-        bookViewModel.getBookById(currentBook.getGid()).observe(getViewLifecycleOwner(), book -> {
+        bookViewModel.getSavedBookByGid(currentBook.getGid()).observe(getViewLifecycleOwner(), book -> {
             isBookSaved = (book != null);
             updateFabState();
         });

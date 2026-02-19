@@ -17,14 +17,14 @@ import it.mybooks.mybooks.data.repository.UserRepository;
 
 public class MainViewModel extends AndroidViewModel {
     private final String TAG = MainViewModel.class.getName();
-    public LiveData<FirebaseUser> userSession;
+    private final LiveData<FirebaseUser> userSession;
     private final MutableLiveData<Boolean> isConnected;
     ConnectivityManager connectivityManager;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        UserRepository userRepo = UserRepository.getInstance();
-        userSession = userRepo.getUser();
+        UserRepository userRepository = UserRepository.getInstance();
+        userSession = userRepository.getUser();
         connectivityManager = (ConnectivityManager) application.getSystemService(Application.CONNECTIVITY_SERVICE);
         isConnected = new MutableLiveData<>(false); // Will be updated by callback
         registerNetworkCallback();

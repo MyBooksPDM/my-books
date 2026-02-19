@@ -1,6 +1,9 @@
 package it.mybooks.mybooks.ui.main.viewmodel;
 
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -8,34 +11,38 @@ import androidx.lifecycle.ViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ProfileViewModel extends ViewModel {
+import it.mybooks.mybooks.data.repository.BookRepository;
+import it.mybooks.mybooks.data.repository.UserRepository;
 
-    private final FirebaseAuth auth;
+public class ProfileViewModel extends AndroidViewModel {
 
-    public ProfileViewModel() {
-        auth = FirebaseAuth.getInstance();
+    private final UserRepository userRepository;
+
+    private final BookRepository bookRepository;
+
+    public ProfileViewModel(Application application) {
+        super(application);
+        userRepository = UserRepository.getInstance();
+        bookRepository = BookRepository.getInstance(application);
     }
 
-    public FirebaseUser getCurrentUser() {
-        return auth.getCurrentUser();
-    }
-
-    public void logout() {
-        auth.signOut();
+    public LiveData<FirebaseUser> getCurrentUser() {
+        return userRepository.getUser();
     }
 
     public LiveData<Boolean> deleteAccount() {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
 
-        FirebaseUser user = auth.getCurrentUser();
-        if (user != null) {
-            user.delete().addOnCompleteListener(task -> {
-                result.setValue(task.isSuccessful());
-            });
-        } else {
-            result.setValue(false);
-        }
-
+        getCurrentUser().observeForever(firebaseUser -> {
+            if (firebaseUser != null) {
+                firebaseUser.delete().addOnCompleteListener(task -> {
+                    result.setValue(task.isSuccessful());
+                    bookRepository.clearLocalBooks();
+                });
+            } else {
+                result.setValue(false);
+            }
+        });
         return result;
     }
 }

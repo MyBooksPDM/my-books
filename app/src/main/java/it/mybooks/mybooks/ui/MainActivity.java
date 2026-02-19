@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        mainViewModel.userSession.observe(this, user -> {
+        mainViewModel.getUserSession().observe(this, user -> {
             if (user != null) {
                 Log.d(TAG, "onCreate: user logged in: " + user.getUid());
                 // User is logged in!

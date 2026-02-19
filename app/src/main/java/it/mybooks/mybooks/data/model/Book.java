@@ -108,11 +108,12 @@ public class Book implements Parcelable {
         }
     };
 
+    @NonNull
     public String getGid() {
         return gid;
     }
 
-    public void setGid(String gid) {
+    public void setGid(@NonNull String gid) {
         this.gid = gid;
     }
 

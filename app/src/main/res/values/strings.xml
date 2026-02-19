@@ -45,4 +45,14 @@
     <string name="actions">Actions</string>
     <string name="logout">Logout</string>
     <string name="delete_account">Delete Account</string>
+    <string name="delete_account_dialog">Delete account?</string>
+    <string name="delete_account_message">This action will be irreversible. Are you sure?</string>
+    <string name="delete_account_confirm">Yes</string>
+    <string name="delete_account_cancel">No</string>
+    <string name="delete_account_error">Error</string>
+    <string name="delete_account_error_message">Unable to delete account.</string>
+    <string name="ok">OK</string>
+    <string name="connection_error">"Connection error: "</string>
+    <string name="no_results_found_for">"No results found for : "</string>
+    <string name="api_error">"API error: "</string>
 </resources>

@@ -30,10 +30,6 @@ public class UserRepository {
         return firebaseAuthDataSource.getUserLiveData();
     }
 
-    public void signOut() {
-        firebaseAuthDataSource.signOut();
-    }
-
     public void signInWithGoogle(Activity activity, OnLoginListener listener) {
         firebaseAuthDataSource.signInWithGoogle(activity, new FirebaseAuthDataSource.GoogleSignInCallback() {
             @Override
@@ -79,6 +75,23 @@ public class UserRepository {
                 });
     }
 
+    public void signOut() {
+        firebaseAuthDataSource.signOut();
+    }
+
+    public void deleteAccount(OnLoginListener listener) {
+        firebaseAuthDataSource.deleteAccount(new FirebaseAuthDataSource.DeleteAccountCallback() {
+            @Override
+            public void onSuccess() {
+                listener.onSuccess();
+            }
+
+            @Override
+            public void onError(String message) {
+                listener.onError(message);
+            }
+        });
+    }
     public interface OnLoginListener {
         void onSuccess();
 

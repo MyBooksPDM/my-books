@@ -8,21 +8,25 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import it.mybooks.mybooks.data.repository.BookRepository;
 import it.mybooks.mybooks.data.repository.UserRepository;
 
 public class AuthViewModel extends AndroidViewModel {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
+    private final BookRepository bookRepository;
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
     public AuthViewModel(@NonNull Application application) {
         super(application);
-        repository = UserRepository.getInstance();
+        userRepository = UserRepository.getInstance();
+        bookRepository = BookRepository.getInstance(application);
     }
 
     public void signOut() {
-        repository.signOut();
+        bookRepository.clearLocalBooks();
+        userRepository.signOut();
     }
 
     public LiveData<Boolean> getIsLoading() {
@@ -35,11 +39,10 @@ public class AuthViewModel extends AndroidViewModel {
 
     public void signInWithGoogle(Activity activity) {
         isLoading.setValue(true);
-        repository.signInWithGoogle(activity, new UserRepository.OnLoginListener() {
+        userRepository.signInWithGoogle(activity, new UserRepository.OnLoginListener() {
             @Override
             public void onSuccess() {
                 isLoading.setValue(false);
-                // Navigation is handled by MainActivity observing MainViewModel
             }
 
             @Override
@@ -52,11 +55,10 @@ public class AuthViewModel extends AndroidViewModel {
 
     public void signInWithEmail(String email, String password) {
         isLoading.setValue(true);
-        repository.signInWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
+        userRepository.signInWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
             @Override
             public void onSuccess() {
                 isLoading.setValue(false);
-                // Navigation is handled by MainActivity observing MainViewModel
             }
 
             @Override
@@ -69,11 +71,10 @@ public class AuthViewModel extends AndroidViewModel {
 
     public void signUpWithEmail(String email, String password) {
         isLoading.setValue(true);
-        repository.createUserWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
+        userRepository.createUserWithEmailAndPassword(email, password, new UserRepository.OnLoginListener() {
             @Override
             public void onSuccess() {
                 isLoading.setValue(false);
-                // Navigation is handled by MainActivity observing MainViewModel
             }
 
             @Override

@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.mybooks.mybooks.R;
 import it.mybooks.mybooks.data.local.AppDatabase;
 import it.mybooks.mybooks.data.local.BookDao;
 
@@ -86,12 +87,12 @@ public class BookRepository {
                         searchError.setValue(null);
                     } else {
                         searchResults.setValue(new ArrayList<>());
-                        searchError.setValue("Nessun risultato trovato per: " + query);
+                        searchError.setValue(R.string.no_results_found_for + query);
                     }
                 } else {
                     Log.e(TAG, "API Response error: " + response.code() + " - " + response.message());
                     searchResults.setValue(new ArrayList<>());
-                    searchError.setValue("Errore API: " + response.code());
+                    searchError.setValue(R.string.api_error + response.code() + " - " + response.message());
                 }
                 isLoading.setValue(false);
             }
@@ -99,7 +100,7 @@ public class BookRepository {
             @Override
             public void onFailure(@NonNull Call<BookApiResponse> call, @NonNull Throwable t) {
                 Log.e(TAG, "API call failed", t);
-                searchError.setValue("Errore di connessione: " + t.getMessage());
+                searchError.setValue(R.string.connection_error + t.getMessage());
                 searchResults.setValue(new ArrayList<>());
                 isLoading.setValue(false);
             }
@@ -111,14 +112,14 @@ public class BookRepository {
     }
 
 
-    public void refreshSavedBooks(FirestoreDataSource.FirestoreGetBooksCallback listener) {
+    public void syncBooksFromRemote(OnRepositoryActionListener listener) {
 
         firestoreDataSource.getSavedBooks(new FirestoreDataSource.FirestoreGetBooksCallback() {
 
             @Override
             public void onSuccess(List<Book> remoteBooks) {
-                syncBooksWithRoom(remoteBooks);
-                listener.onSuccess(remoteBooks);
+                replaceLocalBooks(remoteBooks);
+                listener.onSuccess();
             }
 
             @Override
@@ -129,8 +130,8 @@ public class BookRepository {
     }
 
 
-    public LiveData<Book> getBookById(String id) {
-        return bookDao.getBookById(id);
+    public LiveData<Book> getSavedBookByGid(String gid) {
+        return bookDao.getBookByGid(gid);
     }
 
     public void saveBook(Book book) {
@@ -144,7 +145,6 @@ public class BookRepository {
 
             @Override
             public void onError(String message) {
-//                listener.onError(message);
             }
         });
     }
@@ -163,14 +163,18 @@ public class BookRepository {
         });
     }
 
-    public void syncBooksWithRoom(List<Book> remoteBooks) {
+    public void replaceLocalBooks(List<Book> remoteBooks) {
         AppExecutors.getInstance().diskIO().execute(() -> {
             bookDao.clearAll();
             bookDao.insertAll(remoteBooks);
         });
     }
 
-    public interface OnFirestoreChangeListener {
+    public void clearLocalBooks() {
+        AppExecutors.getInstance().diskIO().execute(bookDao::clearAll);
+    }
+
+    public interface OnRepositoryActionListener {
         void onSuccess();
 
         void onError(String message);

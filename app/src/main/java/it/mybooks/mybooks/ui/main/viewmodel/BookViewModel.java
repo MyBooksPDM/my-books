@@ -10,7 +10,6 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import it.mybooks.mybooks.data.model.Book;
-import it.mybooks.mybooks.data.remote.firebase.FirestoreDataSource;
 import it.mybooks.mybooks.data.repository.BookRepository;
 
 public class BookViewModel extends AndroidViewModel {
@@ -33,11 +32,10 @@ public class BookViewModel extends AndroidViewModel {
         savedBooks = repository.getSavedBooks();
         searchResults = repository.getSearchResults();
         currentQuery = "";
-        repository.refreshSavedBooks(new FirestoreDataSource.FirestoreGetBooksCallback() {
-
+        repository.syncBooksFromRemote(new BookRepository.OnRepositoryActionListener() {
             @Override
-            public void onSuccess(List<Book> books) {
-                // opzionale: log
+            public void onSuccess() {
+
             }
 
             @Override
@@ -73,8 +71,8 @@ public class BookViewModel extends AndroidViewModel {
         return savedBooks;
     }
 
-    public LiveData<Book> getBookById(String id) {
-        return repository.getBookById(id);
+    public LiveData<Book> getSavedBookByGid(String gid) {
+        return repository.getSavedBookByGid(gid);
     }
 
     public void saveBook(Book book) {

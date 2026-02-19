@@ -135,7 +135,32 @@ public class FirebaseAuthDataSource {
         return firebaseAuth.createUserWithEmailAndPassword(email, password);
     }
 
+    public void deleteAccount(FirebaseAuthDataSource.DeleteAccountCallback deleteAccountCallback) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            user.delete()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            deleteAccountCallback.onSuccess();
+                        } else {
+                            String errorMsg = task.getException() != null
+                                    ? task.getException().getMessage()
+                                    : "Unknown error";
+                            deleteAccountCallback.onError(errorMsg);
+                        }
+                    });
+        } else {
+            deleteAccountCallback.onError("No authenticated user found.");
+        }
+    }
+
     public interface GoogleSignInCallback {
+        void onSuccess();
+
+        void onError(String message);
+    }
+
+    public interface DeleteAccountCallback {
         void onSuccess();
 
         void onError(String message);
